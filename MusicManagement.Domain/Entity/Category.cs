@@ -6,6 +6,8 @@ public abstract class Category : EntityBase
 {
     public string Title { get; private set; }
     public string Slug { get; private set; }
+    public ICollection<Album> Albums { get; private set; }
+    public ICollection<Band> Bands { get; private set; }
 
     protected Category()
     {

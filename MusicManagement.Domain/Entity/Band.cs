@@ -6,6 +6,7 @@ namespace MusicManagement.Domain.Entity;
 
 public class Band : EntityBase
 {
+    public string Name { get; private set; }
     public string Slug { get; private set; }
     public State State { get; private set; }
 
@@ -16,28 +17,30 @@ public class Band : EntityBase
     public ICollection<BandPicture> Pictures { get; private set; }
 
     public long? BandCategoryId { get; private set; }
-    public BandCategory BandCategory { get; private set; }
+    public Category BandCategory { get; private set; }
 
     public ICollection<Artist> Artists { get; set; }
     public ICollection<Album> Albums { get; private set; }
 
 
-    public Band(string slug/*, SeoPage seoPage*/, long? bandCategoryId)
+    public Band(string name, string slug/*, SeoPage seoPage*/, long? bandCategoryId)
     {
         Slug = slug;
         //SeoPage = seoPage;
         BandCategoryId = bandCategoryId;
+        Name = name;
         State = State.Active;
     }
 
-    protected Band()
+    protected Band(string name)
     {
-        
+        Name = name;
     }
 
-    public void Edit(string slug/*, SeoPage seoPage*/, long? categoryId)
+    public void Edit(string name, string slug/*, SeoPage seoPage*/, long? categoryId)
     {
         Slug = slug;
+        State = State.Active;
         //SeoPage = seoPage;
         BandCategoryId = categoryId;
     }

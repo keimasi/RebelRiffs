@@ -4,7 +4,7 @@ using MusicManagement.Domain.IRepository;
 
 namespace MusicManagement.Infrastructure.EfCore.Repository;
 
-public class AlbumRepository : RepositoryBase<Album>, IAlbumPictureRepository
+public class AlbumRepository : RepositoryBase<Album>, IAlbumRepository
 {
 
     private readonly MusicContext _context;

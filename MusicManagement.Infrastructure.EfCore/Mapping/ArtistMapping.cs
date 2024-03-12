@@ -16,9 +16,7 @@ public class ArtistMapping : IEntityTypeConfiguration<Artist>
         builder.Property(e => e.Description).HasMaxLength(150).IsRequired(false);
 
         //Relation
-        builder.HasOne(e => e.ArtistPicture)
-            .WithOne(e => e.Artist).
-            HasForeignKey<Artist>(e => e.ArtistPictureId);
+      
 
         builder.
             HasOne(e => e.Band).

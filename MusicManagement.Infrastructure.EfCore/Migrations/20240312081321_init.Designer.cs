@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MusicManagement.Infrastructure.EfCore;
 
@@ -11,9 +12,11 @@ using MusicManagement.Infrastructure.EfCore;
 namespace MusicManagement.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(MusicContext))]
-    partial class MusicContextModelSnapshot : ModelSnapshot
+    [Migration("20240312081321_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,15 +36,14 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
                     b.Property<long>("AlbumCategoryId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("AlbumPictureId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("BandId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ReleasedDate")
                         .IsRequired()
@@ -64,9 +66,36 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
 
                     b.HasIndex("AlbumCategoryId");
 
+                    b.HasIndex("AlbumPictureId")
+                        .IsUnique();
+
                     b.HasIndex("BandId");
 
                     b.ToTable("tbAlbums", (string)null);
+                });
+
+            modelBuilder.Entity("MusicManagement.Domain.Entity.AlbumCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("MusicManagement.Domain.Entity.Artist", b =>
@@ -76,6 +105,9 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("ArtistPictureId")
+                        .HasColumnType("bigint");
 
                     b.Property<long?>("BandId")
                         .HasColumnType("bigint");
@@ -96,10 +128,6 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long?>("InstrumentId")
                         .HasColumnType("bigint");
 
@@ -117,6 +145,10 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ArtistPictureId")
+                        .IsUnique()
+                        .HasFilter("[ArtistPictureId] IS NOT NULL");
 
                     b.HasIndex("BandId");
 
@@ -184,12 +216,14 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BandCategoryId");
+                    b.HasIndex("BandCategoryId")
+                        .IsUnique()
+                        .HasFilter("[BandCategoryId] IS NOT NULL");
 
                     b.ToTable("tbBands", (string)null);
                 });
 
-            modelBuilder.Entity("MusicManagement.Domain.Entity.Category", b =>
+            modelBuilder.Entity("MusicManagement.Domain.Entity.BandCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,13 +231,11 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("BandId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Slug")
                         .IsRequired()
@@ -215,11 +247,7 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Category");
-
-                    b.UseTphMappingStrategy();
+                    b.ToTable("BandCategory");
                 });
 
             modelBuilder.Entity("MusicManagement.Domain.Entity.Instrument", b =>
@@ -239,6 +267,50 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Instruments");
+                });
+
+            modelBuilder.Entity("MusicManagement.Domain.Entity.PictureModels.AlbumPicture", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AlbumId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AlbumPicture");
+                });
+
+            modelBuilder.Entity("MusicManagement.Domain.Entity.PictureModels.ArtistPicture", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ArtistId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ArtistPicture");
                 });
 
             modelBuilder.Entity("MusicManagement.Domain.Entity.PictureModels.BandPicture", b =>
@@ -265,18 +337,17 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
                     b.ToTable("BandPicture");
                 });
 
-            modelBuilder.Entity("MusicManagement.Domain.Entity.AlbumCategory", b =>
-                {
-                    b.HasBaseType("MusicManagement.Domain.Entity.Category");
-
-                    b.HasDiscriminator().HasValue("AlbumCategory");
-                });
-
             modelBuilder.Entity("MusicManagement.Domain.Entity.Album", b =>
                 {
-                    b.HasOne("MusicManagement.Domain.Entity.Category", "AlbumCategory")
+                    b.HasOne("MusicManagement.Domain.Entity.AlbumCategory", "AlbumCategory")
                         .WithMany("Albums")
                         .HasForeignKey("AlbumCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MusicManagement.Domain.Entity.PictureModels.AlbumPicture", "AlbumPicture")
+                        .WithOne("Album")
+                        .HasForeignKey("MusicManagement.Domain.Entity.Album", "AlbumPictureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -286,11 +357,17 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
 
                     b.Navigation("AlbumCategory");
 
+                    b.Navigation("AlbumPicture");
+
                     b.Navigation("Band");
                 });
 
             modelBuilder.Entity("MusicManagement.Domain.Entity.Artist", b =>
                 {
+                    b.HasOne("MusicManagement.Domain.Entity.PictureModels.ArtistPicture", "ArtistPicture")
+                        .WithOne("Artist")
+                        .HasForeignKey("MusicManagement.Domain.Entity.Artist", "ArtistPictureId");
+
                     b.HasOne("MusicManagement.Domain.Entity.Band", "Band")
                         .WithMany("Artists")
                         .HasForeignKey("BandId");
@@ -298,6 +375,8 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
                     b.HasOne("MusicManagement.Domain.Entity.Instrument", "Instrument")
                         .WithMany("Artists")
                         .HasForeignKey("InstrumentId");
+
+                    b.Navigation("ArtistPicture");
 
                     b.Navigation("Band");
 
@@ -317,9 +396,9 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
 
             modelBuilder.Entity("MusicManagement.Domain.Entity.Band", b =>
                 {
-                    b.HasOne("MusicManagement.Domain.Entity.Category", "BandCategory")
-                        .WithMany("Bands")
-                        .HasForeignKey("BandCategoryId");
+                    b.HasOne("MusicManagement.Domain.Entity.BandCategory", "BandCategory")
+                        .WithOne("Band")
+                        .HasForeignKey("MusicManagement.Domain.Entity.Band", "BandCategoryId");
 
                     b.Navigation("BandCategory");
                 });
@@ -340,6 +419,11 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
                     b.Navigation("Audios");
                 });
 
+            modelBuilder.Entity("MusicManagement.Domain.Entity.AlbumCategory", b =>
+                {
+                    b.Navigation("Albums");
+                });
+
             modelBuilder.Entity("MusicManagement.Domain.Entity.Band", b =>
                 {
                     b.Navigation("Albums");
@@ -349,16 +433,27 @@ namespace MusicManagement.Infrastructure.EfCore.Migrations
                     b.Navigation("Pictures");
                 });
 
-            modelBuilder.Entity("MusicManagement.Domain.Entity.Category", b =>
+            modelBuilder.Entity("MusicManagement.Domain.Entity.BandCategory", b =>
                 {
-                    b.Navigation("Albums");
-
-                    b.Navigation("Bands");
+                    b.Navigation("Band")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MusicManagement.Domain.Entity.Instrument", b =>
                 {
                     b.Navigation("Artists");
+                });
+
+            modelBuilder.Entity("MusicManagement.Domain.Entity.PictureModels.AlbumPicture", b =>
+                {
+                    b.Navigation("Album")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MusicManagement.Domain.Entity.PictureModels.ArtistPicture", b =>
+                {
+                    b.Navigation("Artist")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

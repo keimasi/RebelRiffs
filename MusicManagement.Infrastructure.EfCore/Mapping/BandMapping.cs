@@ -20,7 +20,7 @@ public class BandMapping : IEntityTypeConfiguration<Band>
             .HasForeignKey(e => e.BandId);
 
         builder.HasOne(e => e.BandCategory)
-            .WithOne(e => e.Band).HasForeignKey<Band>(e => e.BandCategoryId);
+            .WithMany(e => e.Bands).HasForeignKey(e => e.BandCategoryId);
 
         builder.HasMany(many => many.Artists).
             WithOne(e => e.Band)

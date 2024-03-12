@@ -17,9 +17,7 @@ public class AlbumMapping : IEntityTypeConfiguration<Album>
         builder.Property(e => e.Slug).HasMaxLength(40).IsRequired();
         builder.Property(e => e.ReleasedDate).IsRequired(true);
 
-        builder.HasOne(e => e.AlbumPicture).
-            WithOne(e => e.Album)
-            .HasForeignKey<Album>(e=>e.AlbumPictureId);
+    
 
 
         builder.HasOne(e => e.AlbumCategory).

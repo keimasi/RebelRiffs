@@ -19,9 +19,9 @@ public class Artist : EntityBase
 
     //Relation
 
-    public ArtistPicture ArtistPicture { get; private set; }
-    public long? ArtistPictureId { get; private set; }
-
+    //public ArtistPicture ArtistPicture { get; private set; }
+    //public long? ArtistPictureId { get; private set; }
+    public string ImagePath { get; private set; }
     public long? BandId { get; private set; }
     public Band Band { get; private set; }
 
@@ -33,25 +33,25 @@ public class Artist : EntityBase
         Country = country;
     }
 
-    public Artist(string name, string slug, /*SeoPage seoPage,*/ long? artistPictureId,
+    public Artist(string name, string slug, /*SeoPage seoPage,*/ string imagePath,
         long? bandId, long? instrumentId, long country)
     {
         Name = name;
         Slug = slug;
         //SeoPage = seoPage;
-        ArtistPictureId = artistPictureId;
+        ImagePath = imagePath;
         BandId = bandId;
         InstrumentId = instrumentId;
         Country = country;
         State = State.Active;
     }
 
-    public void Edit(string name, /*SeoPage seoPage,*/ long? artistPictureId,
+    public void Edit(string name, /*SeoPage seoPage,*/ string imagePath,
         long? bandId, long? instrumentId,long country)
     {
         Name = name;
         //SeoPage = seoPage;
-        ArtistPictureId = artistPictureId;
+        ImagePath = imagePath;
         BandId = bandId;
         InstrumentId = instrumentId;
         Country = country;
