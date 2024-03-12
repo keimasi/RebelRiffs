@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicManagement.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicServiceConfiguration", "ServiceConfiguration\MusicServiceConfiguration.csproj", "{6E4C1634-E44D-44FE-9569-30BCBA5176A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{20FA0EFE-003F-4749-AB4D-03559684D533}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{6E4C1634-E44D-44FE-9569-30BCBA5176A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E4C1634-E44D-44FE-9569-30BCBA5176A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E4C1634-E44D-44FE-9569-30BCBA5176A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20FA0EFE-003F-4749-AB4D-03559684D533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20FA0EFE-003F-4749-AB4D-03559684D533}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20FA0EFE-003F-4749-AB4D-03559684D533}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20FA0EFE-003F-4749-AB4D-03559684D533}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

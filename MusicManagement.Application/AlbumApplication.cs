@@ -76,7 +76,7 @@ public class AlbumApplication : IAlbumApplication
     public async Task<List<AlbumViewModel>> ToList()
     {
         var token = new CancellationToken();
-        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel, Band>(null,
+        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel>(null,
             e => new AlbumViewModel()
         {
             Title = e.Title,

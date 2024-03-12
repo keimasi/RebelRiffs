@@ -75,7 +75,7 @@ public class BandApplication : IBandApplication
     public async Task<List<BandViewModel>> ToList()
     {
         var token = new CancellationToken();
-        var list = await _bandRepository.ToViewsWithInclude<BandViewModel, Category>(null, e => new BandViewModel()
+        var list = await _bandRepository.ToViewsWithInclude<BandViewModel>(null, e => new BandViewModel()
         {
             Id = e.Id,
             Name = e.Name,

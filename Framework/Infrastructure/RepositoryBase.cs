@@ -53,7 +53,7 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
     }
 
 
-    public async Task<List<TViewTModel>> ToViewsWithInclude<TViewTModel,TProperty>(Expression<Func<TModel, bool>>? whereExpression, Expression<Func<TModel, TViewTModel>>? selectExpression, CancellationToken cancellationToken, params Expression<Func<TModel, object>>[] includesExpression)
+    public async Task<List<TViewTModel>> ToViewsWithInclude<TViewTModel>(Expression<Func<TModel, bool>>? whereExpression, Expression<Func<TModel, TViewTModel>>? selectExpression, CancellationToken cancellationToken, params Expression<Func<TModel, object>>[] includesExpression)
     {
         IQueryable<TModel> query = _Context.Set<TModel>().AsQueryable();
 
