@@ -6,7 +6,7 @@ namespace MusicManagement.Infrastructure.EfCore;
 
 public class MusicContext : DbContext
 {
-    //public MusicContext(DbContextOptions<MusicContext> context) : base(context) { }
+    public MusicContext(DbContextOptions<MusicContext> context) : base(context) { }
 
     public DbSet<Band> Bands { get; set; }
     public DbSet<Album> Albums { get; set; }
@@ -22,9 +22,4 @@ public class MusicContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DbTest;PersistSecurityInfo=True;User ID=sa;Password=SqlBrok2005;TrustServerCertificate = true");
-        base.OnConfiguring(optionsBuilder);
-    }
 }

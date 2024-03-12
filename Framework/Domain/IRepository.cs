@@ -14,8 +14,7 @@ public interface IRepository<TModel> where TModel : class
 
     List<TViewModel> ToViews<TViewModel>(Expression<Func<TModel, bool>> whereExpression, Expression<Func<TModel, TViewModel>> selectExpression);
 
-    public List<TViewTModel> ToViewsWithInclude<TViewTModel, TProperty>(Expression<Func<TModel, bool>>? whereExpression
-        , Expression<Func<TModel, TViewTModel>>? selectExpression,
+    public Task<List<TViewTModel>> ToViewsWithInclude<TViewTModel, TProperty>(Expression<Func<TModel, bool>>? whereExpression, Expression<Func<TModel, TViewTModel>>? selectExpression, CancellationToken cancellationToken,
         params Expression<Func<TModel, TProperty>>[] includesExpression);
     Task<List<TViewModel>> ToViewsAsync<TViewModel>(Expression<Func<TModel, bool>> whereExpression, Expression<Func<TModel, TViewModel>> selectExpression, CancellationToken? token = default);
     List<TModel> ToList();
