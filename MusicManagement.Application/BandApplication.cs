@@ -69,13 +69,13 @@ public class BandApplication : IBandApplication
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         find.Edit(band.Name, band.Slug, band.BandCategoryId);
-        return (await _bandRepository.SaveChanges()).Parse(OperationMessage.Add);
+        return (await _bandRepository.SaveChanges()).Parse(OperationMessage.Edit);
     }
 
     public async Task<List<BandViewModel>> ToList()
     {
         var token = new CancellationToken();
-        var list = await _bandRepository.ToViewsWithInclude<BandViewModel, Category>(null, e => new BandViewModel()
+        var list = await _bandRepository.ToViewsWithInclude<BandViewModel>(null, e => new BandViewModel()
         {
             Id = e.Id,
             Name = e.Name,

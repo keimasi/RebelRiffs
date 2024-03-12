@@ -53,7 +53,7 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
     }
 
 
-    public async Task<List<TViewTModel>> ToViewsWithInclude<TViewTModel,TProperty>(Expression<Func<TModel, bool>>? whereExpression, Expression<Func<TModel, TViewTModel>>? selectExpression, CancellationToken cancellationToken, params Expression<Func<TModel, object>>[] includesExpression)
+    public async Task<List<TViewTModel>> ToViewsWithInclude<TViewTModel>(Expression<Func<TModel, bool>>? whereExpression, Expression<Func<TModel, TViewTModel>>? selectExpression, CancellationToken cancellationToken, params Expression<Func<TModel, object>>[] includesExpression)
     {
         IQueryable<TModel> query = _Context.Set<TModel>().AsQueryable();
 
@@ -103,6 +103,17 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
         return query.FirstOrDefault(findFunc);
     }
 
+
+    public async Task<TResult?> FindAsync<TResult>(Expression<Func<TModel, bool>> whereExpression
+        , Expression<Func<TModel, TResult>> selectExpression,Expression<Func<TResult?, bool>> findFunc)
+    {
+        IQueryable<TResult?> query = _Context.Set<TModel>().Where(whereExpression)
+            .Select(selectExpression);
+        if (findFunc is null)
+            return query.FirstOrDefault();
+
+        return await query.FirstOrDefaultAsync(findFunc);
+    }
 
 
     private IQueryable<TModel> To(Expression<Func<TModel, bool>>? whereExpression)

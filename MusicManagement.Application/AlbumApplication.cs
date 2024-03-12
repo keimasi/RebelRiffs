@@ -70,13 +70,13 @@ public class AlbumApplication : IAlbumApplication
 
         find.Edit(album.Title, album.ReleasedDate, "",
             album.CategoryId,album.BandId);
-        return (await _albumRepository.SaveChanges()).Parse(OperationMessage.Add);
+        return (await _albumRepository.SaveChanges()).Parse(OperationMessage.Edit);
     }
 
     public async Task<List<AlbumViewModel>> ToList()
     {
         var token = new CancellationToken();
-        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel, Band>(null,
+        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel>(null,
             e => new AlbumViewModel()
         {
             Title = e.Title,
