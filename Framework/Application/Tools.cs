@@ -21,6 +21,12 @@ public static class Tools
         }
     }
 
+    public static OperationResult Parse(this bool save, string message = "")
+    {
+        if (!save)
+            return new OperationResult().Failed(message);
+        return new OperationResult().Succeeded(message);
+    }
     public static string Slugify(this string phrase)
     {
         var s = phrase.RemoveDiacritics().ToLower();
@@ -31,7 +37,7 @@ public static class Tools
         s = Regex.Replace(s, @"\s", "-"); // insert hyphens        
         s = Regex.Replace(s, @"‌", "-"); // half space
         return s.ToLower();
-    } 
+    }
     static string RemoveDiacritics(this string text)
     {
         if (string.IsNullOrWhiteSpace(text))

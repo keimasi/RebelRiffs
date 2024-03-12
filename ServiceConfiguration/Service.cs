@@ -14,6 +14,7 @@ namespace MusicServiceConfiguration
         {
             //Configure Application
             services.AddTransient<IBandApplication, BandApplication>();
+            services.AddTransient<IAlbumApplication, AlbumApplication>();
 
 
             //Configure Repository

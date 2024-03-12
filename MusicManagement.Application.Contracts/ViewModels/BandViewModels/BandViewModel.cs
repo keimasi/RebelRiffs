@@ -6,5 +6,5 @@ public class BandViewModel
     public string Name { get; set; }
     public string Category { get; set; }
     public string Image { get; set; }
-    public int NumberOfAudio { get; set; }
+    public long NumberOfAudio { get; set; }
 }

@@ -11,5 +11,8 @@ public class OperationMessage
     public const string Remove = "Delete is Succeeded!";
     public const string FailedRemove = "Delete is Failed , Please Try again!";
     public const string Duplicated = "Found with this Specification";
-    public const string Find = "Find with this Specification";
+    public const string DuplicatedSlug = "Found with Slug , Please Change Slug";
+    public const string Found = "Found with this Specification";
+    public const string NotFound = "Not Found with this Specification";
+    public const string Null = "Null Entity , please fill a Form";
 }

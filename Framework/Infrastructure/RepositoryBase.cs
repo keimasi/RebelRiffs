@@ -2,7 +2,6 @@
 using Framework.Application;
 using Framework.Domain;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace Framework.Infrastructure;
 
@@ -30,9 +29,17 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
         return _Context.Set<TModel>().Remove(model).ConvertEntityEntryToDbState();
     }
 
+    public Task<bool> AnyEntity(Expression<Func<TModel, bool>> anyExpression, CancellationToken cancellationToken = default)
+    {
+        return _Context.Set<TModel>().AnyAsync(anyExpression, cancellationToken);
+    }
     public TModel? Find(Expression<Func<TModel, bool>> findExpression)
     {
-        return _Context.Set<TModel>().Find(findExpression);
+        return _Context.Set<TModel>().FirstOrDefault(findExpression);
+    }
+    public async Task<TModel?> FindAsync(Expression<Func<TModel, bool>> findExpression)
+    {
+        return await _Context.Set<TModel>().FirstOrDefaultAsync(findExpression);
     }
 
     public List<TViewTModel> ToViews<TViewTModel>(Expression<Func<TModel, bool>>? whereExpression
@@ -46,7 +53,7 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
     }
 
 
-    public async Task<List<TViewTModel>> ToViewsWithInclude<TViewTModel, TProperty>(Expression<Func<TModel, bool>>? whereExpression, Expression<Func<TModel, TViewTModel>>? selectExpression, CancellationToken cancellationToken, params Expression<Func<TModel, TProperty>>[] includesExpression)
+    public async Task<List<TViewTModel>> ToViewsWithInclude<TViewTModel,TProperty>(Expression<Func<TModel, bool>>? whereExpression, Expression<Func<TModel, TViewTModel>>? selectExpression, CancellationToken cancellationToken, params Expression<Func<TModel, object>>[] includesExpression)
     {
         IQueryable<TModel> query = _Context.Set<TModel>().AsQueryable();
 
@@ -80,16 +87,22 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
         return await _Context.Set<TModel>().ToListAsync();
     }
 
-    public async Task<int> SaveChanges()
+    public async Task<bool> SaveChanges()
     {
-        return await _Context.SaveChangesAsync();
+        return await _Context.SaveChangesAsync() != 0 ? true : false;
     }
 
     public TResult? Find<TResult>(Expression<Func<TModel, bool>> whereExpression
-        , Expression<Func<TModel, TResult>> selectExpression, Func<TResult, bool> findFunc)
+        , Expression<Func<TModel, TResult>> selectExpression, Func<TResult, bool>? findFunc)
     {
-        return _Context.Set<TModel>().Where(whereExpression).Select(selectExpression).FirstOrDefault(findFunc);
+        var query = _Context.Set<TModel>().Where(whereExpression)
+            .Select(selectExpression);
+        if (findFunc is null)
+            return query.FirstOrDefault();
+
+        return query.FirstOrDefault(findFunc);
     }
+
 
 
     private IQueryable<TModel> To(Expression<Func<TModel, bool>>? whereExpression)

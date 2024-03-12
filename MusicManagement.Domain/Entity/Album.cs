@@ -7,7 +7,7 @@ public class Album : EntityBase
 {
     public string Title { get; private set; }
     public string Slug { get; private set; }
-    public DateTime? ReleasedDate { get; private set; }
+    public DateTime ReleasedDate { get; private set; }
 
     public State State { get; private set; }
     //Seo
