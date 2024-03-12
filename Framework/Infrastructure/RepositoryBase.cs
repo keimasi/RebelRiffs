@@ -59,7 +59,6 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
     }
 
 
-
     public List<TModel> ToList()
     {
         return _Context.Set<TModel>().ToList();
