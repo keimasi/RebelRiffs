@@ -82,10 +82,10 @@ public class AlbumApplication : IAlbumApplication
         return (await _albumRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 
-    public async Task<List<AlbumViewModel>> ToList()
+    public async Task<List<AlbumViewModel>> ToList(long albumId)
     {
         var token = new CancellationToken();
-        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel>(null,
+        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel>(e=>e.Id == albumId,
             e => new AlbumViewModel()
         {
             Title = e.Title,

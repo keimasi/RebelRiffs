@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicManagement.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{20FA0EFE-003F-4749-AB4D-03559684D533}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicManagement.Infrastructure.Config", "MusicManagement.Infrastructure.Config\MusicManagement.Infrastructure.Config.csproj", "{1648C9C1-FAC0-4AB0-BA27-6E4A3460189B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicManagement.Infrastructure.Config", "MusicManagement.Infrastructure.Config\MusicManagement.Infrastructure.Config.csproj", "{1648C9C1-FAC0-4AB0-BA27-6E4A3460189B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

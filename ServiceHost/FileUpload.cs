@@ -11,7 +11,6 @@ namespace ServiceHost
             _webHostEnvironment = webHostEnvironment;
         }
 
-
         public string Upload(IFormFile file, string path)
         {
             if (file == null) return "";

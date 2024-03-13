@@ -1,0 +1,37 @@
+﻿@page "{id:long}"
+@model ServiceHost.Areas.AdminPanel.Pages.AlbumsModel
+@{
+}
+
+
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>State</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (var album in Model.Albums)
+                {
+                    <td>@album.Id</td>
+                    <td>@album.Title</td>
+                    <td>@album.Category</td>
+                    <td>@album.State</td>
+                    <td>
+                        <a type="button" class="btn btn-warning" asp-page="./Musics"
+                                asp-route-id="@album.Id">
+                            Go To Musics
+                        </a>
+                        <a class="btn btn-warning">Edit Album</a>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>

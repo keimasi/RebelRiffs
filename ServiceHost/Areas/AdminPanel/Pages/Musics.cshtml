@@ -1,0 +1,34 @@
+﻿@page "{id:long}"
+@model ServiceHost.Areas.AdminPanel.Pages.MusicsModel
+@{
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Album</th>
+                <th>State</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (var audio in Model.Audios)
+                {
+                    <td>@audio.Id</td>
+                    <td>@audio.Title</td>
+                    <td>@audio.Category</td>
+                    <td>@audio.Album</td>
+                    <td>@audio.State</td>
+                    <td>
+                        <a class="btn btn-warning">Add Music</a>
+                        <a class="btn btn-warning">Edit Music</a>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
