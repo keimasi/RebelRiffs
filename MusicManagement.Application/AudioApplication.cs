@@ -9,12 +9,13 @@ namespace MusicManagement.Application;
 
 public class AudioApplication : IAudioApplication
 {
-
+    private readonly IFileUpload _fileUpload;
     private readonly IAudioRepository _audioRepository;
 
-    public AudioApplication(IAudioRepository audioRepository)
+    public AudioApplication(IAudioRepository audioRepository, IFileUpload fileUpload)
     {
         _audioRepository = audioRepository;
+        _fileUpload = fileUpload;
     }
 
     public async Task<OperationResult> Add(CreateAudioViewModel? audio)
@@ -25,7 +26,10 @@ public class AudioApplication : IAudioApplication
         if (await _audioRepository.AnyEntityAsync(e => e.Title == audio.Title))
             return new OperationResult().Failed(OperationMessage.Duplicated);
 
-        var model = new Audio(audio.Title, "", audio.AlbumId);
+        var picturePath = $"Audio/{audio.Title}";
+        var pictureName = _fileUpload.Upload(audio.MusicFile, picturePath);
+
+        var model = new Audio(audio.Title, pictureName, audio.AlbumId);
         var add = _audioRepository.AddEntity(model);
         if (add != DbState.Added)
             return new OperationResult().Failed(OperationMessage.FailedAdd);
@@ -60,7 +64,10 @@ public class AudioApplication : IAudioApplication
 
         var find = _audioRepository.Find(e => e.Id == audio.Id);
 
-        find?.Edit(audio.Title, "", audio.AlbumId);
+        var picturePath = $"Audio/{find.Title}";
+        var pictureName = _fileUpload.Upload(audio.MusicFile, picturePath);
+
+        find?.Edit(audio.Title, pictureName, audio.AlbumId);
         return (await _audioRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 
@@ -87,7 +94,7 @@ public class AudioApplication : IAudioApplication
             return new OperationResult().Failed(OperationMessage.NotFound);
         var find = _audioRepository.Find(e => e.Id == id);
         find?.ChangeStatus();
-        
+
         return new OperationResult().Succeeded(OperationMessage.Done);
     }
 }

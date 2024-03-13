@@ -9,12 +9,13 @@ namespace MusicManagement.Application;
 
 public class ArtistApplication : IArtistApplication
 {
-
+    private readonly IFileUpload _fileUpload;
     private readonly IArtistRepository _artistRepository;
 
-    public ArtistApplication(IArtistRepository artistRepository)
+    public ArtistApplication(IArtistRepository artistRepository, IFileUpload fileUpload)
     {
         _artistRepository = artistRepository;
+        _fileUpload = fileUpload;
     }
 
     public async Task<OperationResult> Add(CreateArtistViewModel? artist)
@@ -25,8 +26,12 @@ public class ArtistApplication : IArtistApplication
         if (!await _artistRepository.AnyEntityAsync(e => e.Slug.Contains(artist.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
-        var model = new Artist(artist.Name, artist.Slug, "", artist.BandId,
+        var picturePath = $"Artist/{artist.Slug}";
+        var pictureName = _fileUpload.Upload(artist.Picture, picturePath);
+
+        var model = new Artist(artist.Name, artist.Slug, pictureName, artist.BandId,
             artist.InstrumentId, artist.Country);
+
         var add = _artistRepository.AddEntity(model);
 
         if (add != DbState.Added)
@@ -70,8 +75,12 @@ public class ArtistApplication : IArtistApplication
 
         var find = await _artistRepository.FindAsync(e => e.Slug.Contains(artist.Slug));
 
-        find?.Edit(artist.Name, "", artist.BandId,
+        var picturePath = $"Artist/{find.Slug}";
+        var pictureName = _fileUpload.Upload(artist.Picture, picturePath);
+
+        find?.Edit(artist.Name, pictureName, artist.BandId,
             artist.InstrumentId, artist.Country);
+
         return new OperationResult().Succeeded(OperationMessage.Edit);
     }
 

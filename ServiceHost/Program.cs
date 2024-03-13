@@ -1,9 +1,17 @@
+using Framework.Application;
+using MusicManagement.Infrastructure.Config;
+using ServiceHost;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-MusicServiceConfiguration.Service.Define(builder.Services,"");
+var connectionString = builder.Configuration.GetConnectionString("RebelRiffsDB");
+
+MusicMangementBootstrapper.Configure(builder.Services,connectionString);
+
+builder.Services.AddTransient<IFileUpload, FileUpload>();
 
 var app = builder.Build();
 
