@@ -17,13 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicManagement.Infrastruct
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework", "Framework\Framework.csproj", "{43E10DB6-D40D-4742-9BD9-19D881A43F91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicManagement.Application.Contracts", "MusicManagement.Application.Contracts\MusicManagement.Application.Contracts.csproj", "{01DD985A-5D56-4BAD-BC7B-6F008AF3CB60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicManagement.Application.Contracts", "MusicManagement.Application.Contracts\MusicManagement.Application.Contracts.csproj", "{01DD985A-5D56-4BAD-BC7B-6F008AF3CB60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicManagement.Application", "MusicManagement.Application\MusicManagement.Application.csproj", "{D6A99429-8748-4B17-850C-6580D4E43A22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicManagement.Application", "MusicManagement.Application\MusicManagement.Application.csproj", "{D6A99429-8748-4B17-850C-6580D4E43A22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicServiceConfiguration", "ServiceConfiguration\MusicServiceConfiguration.csproj", "{6E4C1634-E44D-44FE-9569-30BCBA5176A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicServiceConfiguration", "ServiceConfiguration\MusicServiceConfiguration.csproj", "{6E4C1634-E44D-44FE-9569-30BCBA5176A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{20FA0EFE-003F-4749-AB4D-03559684D533}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{20FA0EFE-003F-4749-AB4D-03559684D533}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

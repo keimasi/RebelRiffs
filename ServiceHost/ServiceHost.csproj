@@ -11,4 +11,10 @@
     <ProjectReference Include="..\ServiceConfiguration\MusicServiceConfiguration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\AdminPanel\Pages\Shared\Components\LeftSidebar\" />
+    <Folder Include="Areas\AdminPanel\Pages\Shared\Components\RightSidebar\" />
+    <Folder Include="Areas\AdminPanel\ViewComponents\" />
+  </ItemGroup>
+
 </Project>
