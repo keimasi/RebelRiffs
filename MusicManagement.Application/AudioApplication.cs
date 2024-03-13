@@ -22,20 +22,20 @@ public class AudioApplication : IAudioApplication
         if (audio is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (await _audioRepository.AnyEntity(e => e.Title == audio.Title))
+        if (await _audioRepository.AnyEntityAsync(e => e.Title == audio.Title))
             return new OperationResult().Failed(OperationMessage.Duplicated);
 
         var model = new Audio(audio.Title, "", audio.AlbumId);
-        var add = _audioRepository.Add(model);
+        var add = _audioRepository.AddEntity(model);
         if (add != DbState.Added)
             return new OperationResult().Failed(OperationMessage.FailedAdd);
 
-        return (await _audioRepository.SaveChanges()).Parse(OperationMessage.Add);
+        return (await _audioRepository.SaveChangesAsync()).Parse(OperationMessage.Add);
     }
 
     public async Task<EditAudioViewModel> Edit(long id)
     {
-        if (await _audioRepository.AnyEntity(e => e.Id == id))
+        if (await _audioRepository.AnyEntityAsync(e => e.Id == id))
             return new EditAudioViewModel();
 
         var find = await _audioRepository.FindAsync<EditAudioViewModel>(e => e.Id == id,
@@ -55,13 +55,13 @@ public class AudioApplication : IAudioApplication
         if (audio is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (!await _audioRepository.AnyEntity(e => e.Id == audio.Id))
+        if (!await _audioRepository.AnyEntityAsync(e => e.Id == audio.Id))
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var find = _audioRepository.Find(e => e.Id == audio.Id);
 
         find?.Edit(audio.Title, "", audio.AlbumId);
-        return (await _audioRepository.SaveChanges()).Parse(OperationMessage.Edit);
+        return (await _audioRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 
     public async Task<List<AudioViewModel>> ToList()
@@ -83,7 +83,7 @@ public class AudioApplication : IAudioApplication
     public async Task<OperationResult> ChangeState(long id)
     {
 
-        if (!await _audioRepository.AnyEntity(e => e.Id == id))
+        if (!await _audioRepository.AnyEntityAsync(e => e.Id == id))
             return new OperationResult().Failed(OperationMessage.NotFound);
         var find = _audioRepository.Find(e => e.Id == id);
         find?.ChangeStatus();

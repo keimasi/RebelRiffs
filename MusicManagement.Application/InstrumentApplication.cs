@@ -23,20 +23,20 @@ public class InstrumentApplication : IInstrumentApplication
         if (instrument is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (!await _instrumentRepository.AnyEntity(e => e.Title.Contains(instrument.Title)))
+        if (!await _instrumentRepository.AnyEntityAsync(e => e.Title.Contains(instrument.Title)))
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var model = new Instrument(instrument.Title);
-        var add = _instrumentRepository.Add(model);
+        var add = _instrumentRepository.AddEntity(model);
         if (add != DbState.Added)
             return new OperationResult().Failed(OperationMessage.FailedAdd);
 
-        return (await _instrumentRepository.SaveChanges()).Parse(OperationMessage.Add);
+        return (await _instrumentRepository.SaveChangesAsync()).Parse(OperationMessage.Add);
     }
 
     public async Task<EditInstrumentViewModel> Edit(long id)
     {
-        if (!await _instrumentRepository.AnyEntity(e => e.Id == id))
+        if (!await _instrumentRepository.AnyEntityAsync(e => e.Id == id))
             return new EditInstrumentViewModel();
 
         var find = await _instrumentRepository.FindAsync<EditInstrumentViewModel>
@@ -53,7 +53,7 @@ public class InstrumentApplication : IInstrumentApplication
         if (instrument is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (!await _instrumentRepository.AnyEntity(e => e.Id == instrument.Id))
+        if (!await _instrumentRepository.AnyEntityAsync(e => e.Id == instrument.Id))
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var find = await _instrumentRepository.FindAsync(e => e.Id == instrument.Id);

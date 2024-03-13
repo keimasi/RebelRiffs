@@ -22,16 +22,16 @@ public class CategoryApplication : ICategoryApplication
         if (category is not null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (await _categoryRepository.AnyEntity(e => e.Slug.Contains(category.Slug)))
+        if (await _categoryRepository.AnyEntityAsync(e => e.Slug.Contains(category.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
         var model = new Category(category.Title, category.Slug);
-        var add = _categoryRepository.Add(model);
+        var add = _categoryRepository.AddEntity(model);
 
         if (add != DbState.Added)
             return new OperationResult().Failed(OperationMessage.FailedAdd);
 
-        return (await _categoryRepository.SaveChanges()).Parse(OperationMessage.Add);
+        return (await _categoryRepository.SaveChangesAsync()).Parse(OperationMessage.Add);
     }
 
     public async Task<EditCategoryViewModel> Edit(string slug)
@@ -39,7 +39,7 @@ public class CategoryApplication : ICategoryApplication
         if (string.IsNullOrWhiteSpace(slug))
             return new EditCategoryViewModel();
 
-        if (!await _categoryRepository.AnyEntity(e => e.Slug.Contains(slug)))
+        if (!await _categoryRepository.AnyEntityAsync(e => e.Slug.Contains(slug)))
             return new EditCategoryViewModel();
 
         var find = await _categoryRepository
@@ -62,7 +62,7 @@ public class CategoryApplication : ICategoryApplication
         if (category is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (!await _categoryRepository.AnyEntity(e => e.Slug.Contains(category.Slug)))
+        if (!await _categoryRepository.AnyEntityAsync(e => e.Slug.Contains(category.Slug)))
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var find = await _categoryRepository.FindAsync(e => e.Id == category.Id);
@@ -88,7 +88,7 @@ public class CategoryApplication : ICategoryApplication
         if (string.IsNullOrWhiteSpace(slug))
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (!await _categoryRepository.AnyEntity(e => e.Slug.Contains(slug)))
+        if (!await _categoryRepository.AnyEntityAsync(e => e.Slug.Contains(slug)))
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var find = await _categoryRepository.FindAsync(e => e.Slug == slug);

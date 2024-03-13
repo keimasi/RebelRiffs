@@ -22,22 +22,22 @@ public class ArtistApplication : IArtistApplication
         if (artist is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (!await _artistRepository.AnyEntity(e => e.Slug.Contains(artist.Slug)))
+        if (!await _artistRepository.AnyEntityAsync(e => e.Slug.Contains(artist.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
         var model = new Artist(artist.Name, artist.Slug, "", artist.BandId,
             artist.InstrumentId, artist.Country);
-        var add = _artistRepository.Add(model);
+        var add = _artistRepository.AddEntity(model);
 
         if (add != DbState.Added)
             return new OperationResult().Failed(OperationMessage.FailedAdd);
 
-        return (await _artistRepository.SaveChanges()).Parse();
+        return (await _artistRepository.SaveChangesAsync()).Parse();
     }
 
     public async Task<EditArtistViewModel> Edit(string slug)
     {
-        if (!await _artistRepository.AnyEntity(e => e.Slug.Contains(slug)))
+        if (!await _artistRepository.AnyEntityAsync(e => e.Slug.Contains(slug)))
             return new EditArtistViewModel();
 
         var find = await _artistRepository.FindAsync<EditArtistViewModel>(
@@ -65,7 +65,7 @@ public class ArtistApplication : IArtistApplication
         if (artist is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (!await _artistRepository.AnyEntity(e => e.Slug.Contains(artist.Slug)))
+        if (!await _artistRepository.AnyEntityAsync(e => e.Slug.Contains(artist.Slug)))
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var find = await _artistRepository.FindAsync(e => e.Slug.Contains(artist.Slug));
@@ -93,7 +93,7 @@ public class ArtistApplication : IArtistApplication
     public async Task<OperationResult> ChangeState(string slug)
     {
 
-        if (!await _artistRepository.AnyEntity(e => e.Slug.Contains(slug)))
+        if (!await _artistRepository.AnyEntityAsync(e => e.Slug.Contains(slug)))
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var find = await _artistRepository.FindAsync(e => e.Slug.Contains(slug));

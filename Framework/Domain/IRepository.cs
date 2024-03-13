@@ -5,10 +5,10 @@ namespace Framework.Domain;
 
 public interface IRepository<TModel> where TModel : class
 {
-    DbState Add(TModel? model);
-    DbState Update(TModel? model);
-    DbState Delete(TModel? model);
-    Task<bool> AnyEntity(Expression<Func<TModel, bool>> anyExpression, CancellationToken cancellationToken = default);
+    DbState AddEntity(TModel? model);
+    DbState UpdateEntity(TModel? model);
+    DbState DeleteEntity(TModel? model);
+    Task<bool> AnyEntityAsync(Expression<Func<TModel, bool>> anyExpression, CancellationToken cancellationToken = default);
 
     TResult? Find<TResult>(Expression<Func<TModel, bool>> whereExpression
         , Expression<Func<TModel, TResult>> selectExpression, Func<TResult, bool>? findFunc);
@@ -25,5 +25,5 @@ public interface IRepository<TModel> where TModel : class
     Task<List<TViewModel>> ToViewsAsync<TViewModel>(Expression<Func<TModel, bool>> whereExpression, Expression<Func<TModel, TViewModel>> selectExpression, CancellationToken? token = default);
     List<TModel> ToList();
     Task<List<TModel>> ToListAsync(CancellationToken? token = default);
-    Task<bool> SaveChanges();
+    Task<bool> SaveChangesAsync();
 }

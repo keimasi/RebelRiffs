@@ -23,21 +23,21 @@ public class BandApplication : IBandApplication
         if (band is not null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (await _bandRepository.AnyEntity(e => e.Slug.Contains(band.Slug)))
+        if (await _bandRepository.AnyEntityAsync(e => e.Slug.Contains(band.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
         var model = new Band(band.Name, band.Slug, band.BandCategoryId);
-        var add = _bandRepository.Add(model);
+        var add = _bandRepository.AddEntity(model);
 
         if (add != DbState.Added)
             return new OperationResult().Failed(OperationMessage.FailedAdd);
 
-        return (await _bandRepository.SaveChanges()).Parse(OperationMessage.Add);
+        return (await _bandRepository.SaveChangesAsync()).Parse(OperationMessage.Add);
     }
 
     public async Task<EditBandViewModel> Edit(string slug)
     {
-        if (await _bandRepository.AnyEntity(e => !e.Slug.Contains(slug)))
+        if (await _bandRepository.AnyEntityAsync(e => !e.Slug.Contains(slug)))
             return new EditBandViewModel();
 
         var find = _bandRepository.Find<EditBandViewModel>(
@@ -60,7 +60,7 @@ public class BandApplication : IBandApplication
         if (band is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (await _bandRepository.AnyEntity(e => e.Slug.Contains(band.Slug)))
+        if (await _bandRepository.AnyEntityAsync(e => e.Slug.Contains(band.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
         var find = await _bandRepository.FindAsync(e => e.Id == band.Id);
@@ -69,7 +69,7 @@ public class BandApplication : IBandApplication
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         find.Edit(band.Name, band.Slug, band.BandCategoryId);
-        return (await _bandRepository.SaveChanges()).Parse(OperationMessage.Edit);
+        return (await _bandRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 
     public async Task<List<BandViewModel>> ToList()
@@ -97,7 +97,7 @@ public class BandApplication : IBandApplication
 
     public async Task<OperationResult> ChangeState(string slug)
     {
-        if (await _bandRepository.AnyEntity(e => !e.Slug.Contains(slug)))
+        if (await _bandRepository.AnyEntityAsync(e => !e.Slug.Contains(slug)))
             return new OperationResult().Failed(OperationMessage.NotFound);
         var find = _bandRepository.Find(e => e.Slug.Contains(slug));
         if (find is null)

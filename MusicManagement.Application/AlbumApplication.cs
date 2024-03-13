@@ -20,22 +20,22 @@ public class AlbumApplication : IAlbumApplication
         if (album is not null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (await _albumRepository.AnyEntity(e => e.Slug.Contains(album.Slug)))
+        if (await _albumRepository.AnyEntityAsync(e => e.Slug.Contains(album.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
         var model = new Album(album.Title, album.Slug, album.ReleasedDate, "",
             album.CategoryId,album.BandId);
-        var add = _albumRepository.Add(model);
+        var add = _albumRepository.AddEntity(model);
 
         if (add != DbState.Added)
             return new OperationResult().Failed(OperationMessage.FailedAdd);
 
-        return (await _albumRepository.SaveChanges()).Parse(OperationMessage.Add);
+        return (await _albumRepository.SaveChangesAsync()).Parse(OperationMessage.Add);
     }
 
     public async Task<EditAlbumViewModel> Edit(string slug)
     {
-        if (await _albumRepository.AnyEntity(e => !e.Slug.Contains(slug)))
+        if (await _albumRepository.AnyEntityAsync(e => !e.Slug.Contains(slug)))
             return new EditAlbumViewModel();
 
         var find = _albumRepository.Find<EditAlbumViewModel>(
@@ -60,7 +60,7 @@ public class AlbumApplication : IAlbumApplication
         if (album is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (await _albumRepository.AnyEntity(e => e.Slug.Contains(album.Slug)))
+        if (await _albumRepository.AnyEntityAsync(e => e.Slug.Contains(album.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
         var find = await _albumRepository.FindAsync(e => e.Id == album.Id);
@@ -70,7 +70,7 @@ public class AlbumApplication : IAlbumApplication
 
         find.Edit(album.Title, album.ReleasedDate, "",
             album.CategoryId,album.BandId);
-        return (await _albumRepository.SaveChanges()).Parse(OperationMessage.Edit);
+        return (await _albumRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 
     public async Task<List<AlbumViewModel>> ToList()
@@ -90,7 +90,7 @@ public class AlbumApplication : IAlbumApplication
 
     public async Task<OperationResult> ChangeState(string slug)
     {
-        if (await _albumRepository.AnyEntity(e => !e.Slug.Contains(slug)))
+        if (await _albumRepository.AnyEntityAsync(e => !e.Slug.Contains(slug)))
             return new OperationResult().Failed(OperationMessage.NotFound);
         var find = _albumRepository.Find(e => e.Slug.Contains(slug));
         if (find is null)
