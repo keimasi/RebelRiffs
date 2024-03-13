@@ -27,6 +27,7 @@ public static class Tools
             return new OperationResult().Failed(message);
         return new OperationResult().Succeeded(message);
     }
+
     public static string Slugify(this string phrase)
     {
         var s = phrase.RemoveDiacritics().ToLower();
@@ -38,6 +39,7 @@ public static class Tools
         s = Regex.Replace(s, @"‌", "-"); // half space
         return s.ToLower();
     }
+
     static string RemoveDiacritics(this string text)
     {
         if (string.IsNullOrWhiteSpace(text))
@@ -56,5 +58,10 @@ public static class Tools
         }
 
         return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+    }
+
+    public static string ToFileName(this DateTime date)
+    {
+        return $"{date.Year:0000}-{date.Month:00}-{date.Day:00}-{date.Hour:00}-{date.Minute:00}-{date.Second:00}";
     }
 }

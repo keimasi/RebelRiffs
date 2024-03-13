@@ -11,7 +11,7 @@ public class CreateArtistViewModel
     public DateTime BirthDate { get;  set; }
     public string Description { get;  set; }
     public long Country { get; set; }
-    public IFormFile File { get; set; }
+    public IFormFile Picture { get; set; }
     public long? BandId { get; set; }
     public long? InstrumentId { get; private set; }
 }

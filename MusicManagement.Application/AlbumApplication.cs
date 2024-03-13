@@ -9,10 +9,12 @@ namespace MusicManagement.Application;
 
 public class AlbumApplication : IAlbumApplication
 {
+    private readonly IFileUpload _fileUpload;
     private readonly IAlbumRepository _albumRepository;
-    public AlbumApplication(IAlbumRepository albumRepository)
+    public AlbumApplication(IAlbumRepository albumRepository, IFileUpload fileUpload)
     {
         _albumRepository = albumRepository;
+        _fileUpload = fileUpload;
     }
 
     public async Task<OperationResult> Add(CreateAlbumViewModel? album)
@@ -23,8 +25,12 @@ public class AlbumApplication : IAlbumApplication
         if (await _albumRepository.AnyEntityAsync(e => e.Slug.Contains(album.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
-        var model = new Album(album.Title, album.Slug, album.ReleasedDate, "",
+        var picturePath = $"Album/{album.Slug}";
+        var pictureName = _fileUpload.Upload(album.Picture, picturePath);
+
+        var model = new Album(album.Title, album.Slug, album.ReleasedDate,pictureName,
             album.CategoryId,album.BandId);
+
         var add = _albumRepository.AddEntity(model);
 
         if (add != DbState.Added)
@@ -68,7 +74,10 @@ public class AlbumApplication : IAlbumApplication
         if (find is null)
             return new OperationResult().Failed(OperationMessage.NotFound);
 
-        find.Edit(album.Title, album.ReleasedDate, "",
+        var picturePath = $"Album/{find.Slug}";
+        var pictureName = _fileUpload.Upload(album.Picture, picturePath);
+
+        find.Edit(album.Title, album.ReleasedDate, pictureName,
             album.CategoryId,album.BandId);
         return (await _albumRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }

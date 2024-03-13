@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicManagement.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicManagement.Application", "MusicManagement.Application\MusicManagement.Application.csproj", "{D6A99429-8748-4B17-850C-6580D4E43A22}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicServiceConfiguration", "ServiceConfiguration\MusicServiceConfiguration.csproj", "{6E4C1634-E44D-44FE-9569-30BCBA5176A4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{20FA0EFE-003F-4749-AB4D-03559684D533}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicManagement.Infrastructure.Config", "MusicManagement.Infrastructure.Config\MusicManagement.Infrastructure.Config.csproj", "{1648C9C1-FAC0-4AB0-BA27-6E4A3460189B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,14 +51,14 @@ Global
 		{D6A99429-8748-4B17-850C-6580D4E43A22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6A99429-8748-4B17-850C-6580D4E43A22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6A99429-8748-4B17-850C-6580D4E43A22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E4C1634-E44D-44FE-9569-30BCBA5176A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E4C1634-E44D-44FE-9569-30BCBA5176A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E4C1634-E44D-44FE-9569-30BCBA5176A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E4C1634-E44D-44FE-9569-30BCBA5176A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{20FA0EFE-003F-4749-AB4D-03559684D533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{20FA0EFE-003F-4749-AB4D-03559684D533}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20FA0EFE-003F-4749-AB4D-03559684D533}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20FA0EFE-003F-4749-AB4D-03559684D533}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1648C9C1-FAC0-4AB0-BA27-6E4A3460189B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1648C9C1-FAC0-4AB0-BA27-6E4A3460189B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1648C9C1-FAC0-4AB0-BA27-6E4A3460189B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1648C9C1-FAC0-4AB0-BA27-6E4A3460189B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,7 +71,7 @@ Global
 		{DE7D712C-264B-4743-9688-D74D345481D4} = {D7B870A8-7C48-4A89-963C-DE26200D3836}
 		{01DD985A-5D56-4BAD-BC7B-6F008AF3CB60} = {70D84CC7-4040-4892-8014-B36E06D2018C}
 		{D6A99429-8748-4B17-850C-6580D4E43A22} = {70D84CC7-4040-4892-8014-B36E06D2018C}
-		{6E4C1634-E44D-44FE-9569-30BCBA5176A4} = {2E9520D3-CCC3-4202-9392-C83AA76B0215}
+		{1648C9C1-FAC0-4AB0-BA27-6E4A3460189B} = {D7B870A8-7C48-4A89-963C-DE26200D3836}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {33968188-7FB2-4C58-BCA9-7194B7CCC035}
