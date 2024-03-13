@@ -10,7 +10,6 @@
     <Folder Include="ViewModels\AlbumViewModels\" />
     <Folder Include="ViewModels\AudioViewModel\" />
     <Folder Include="ViewModels\ArtistViewModels\" />
-    <Folder Include="ViewModels\CategoryViewModels\" />
   </ItemGroup>
 
   <ItemGroup>

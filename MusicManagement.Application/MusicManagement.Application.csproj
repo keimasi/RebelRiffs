@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MusicManagement.Application.Contracts\MusicManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\MusicManagement.Infrastructure.EfCore\MusicManagement.Infrastructure.EfCore.csproj" />
   </ItemGroup>
 
 </Project>

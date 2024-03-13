@@ -1,6 +1,6 @@
 ﻿namespace MusicManagement.Application.Contracts.ViewModels.CategoryViewModels;
 
-public class EditCreateCategoryViewModel : CreateCategoryViewModel
+public class EditCategoryViewModel : CreateCategoryViewModel
 {
     public long Id { get; set; }
 }
