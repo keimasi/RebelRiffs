@@ -1,0 +1,86 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ServiceHost.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/AdminTheme/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/AdminTheme/assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.css" />
+    <link rel="stylesheet" href="~/AdminTheme/assets/plugins/charts-c3/plugin.css" />
+
+    <link rel="stylesheet" href="~/AdminTheme/assets/plugins/morrisjs/morris.min.css" />
+
+    <link rel="stylesheet" href="~/AdminTheme/assets/css/style.min.css">
+
+</head>
+<body>
+
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+
+    <!-- Main Search -->
+    <div id="search">
+        <button id="close" type="button" class="close btn btn-primary btn-icon btn-icon-mini btn-round">x</button>
+        <form>
+            <input type="search" value="" placeholder="جستجو..." />
+            <button type="submit" class="btn btn-primary">جستجو</button>
+        </form>
+    </div>
+
+    <!-- Right Icon menu Sidebar -->
+    @await Component.InvokeAsync(typeof(ServiceHost.Areas.AdminPanel.ViewComponents.RightIconMenuSidebar));
+
+    <!-- Left Sidebar -->
+    @await Component.InvokeAsync(typeof(ServiceHost.Areas.AdminPanel.ViewComponents.LeftSidebar));
+
+    <!-- Right Sidebar -->
+    @await Component.InvokeAsync(typeof(ServiceHost.Areas.AdminPanel.ViewComponents.RightSidebar));
+
+
+    <section class="content">
+
+        <div class="">
+            <div class="block-header">
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 col-sm-12">
+                        <h2>داشبورد</h2>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> آئرو</a></li>
+                            <li class="breadcrumb-item active">داشبورد 1</li>
+                        </ul>
+                        <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <button class="btn btn-primary btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </section>
+
+
+    <script src="~/AdminTheme/assets/bundles/libscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) -->
+    <script src="~/AdminTheme/assets/bundles/vendorscripts.bundle.js"></script> <!-- slimscroll, waves Scripts Plugin Js -->
+    <script src="~/AdminTheme/assets/bundles/jvectormap.bundle.js"></script> <!-- JVectorMap Plugin Js -->
+    <script src="~/AdminTheme/assets/bundles/sparkline.bundle.js"></script> <!-- Sparkline Plugin Js -->
+    <script src="~/AdminTheme/assets/bundles/c3.bundle.js"></script>
+    <script src="~/AdminTheme/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="~/AdminTheme/assets/js/pages/index.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
