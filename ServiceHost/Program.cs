@@ -6,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
 var connectionString = builder.Configuration.GetConnectionString("DbKey1");
 
 MusicMangementBootstrapper.Configure(builder.Services,connectionString);
