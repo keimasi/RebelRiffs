@@ -28,8 +28,8 @@ public class AlbumApplication : IAlbumApplication
         var picturePath = $"Album/{album.Slug}";
         var pictureName = _fileUpload.Upload(album.Picture, picturePath);
 
-        var model = new Album(album.Title, album.Slug, album.ReleasedDate,pictureName,
-            album.CategoryId,album.BandId);
+        var model = new Album(album.Title, album.Slug, album.ReleasedDate, pictureName,
+            album.CategoryId, album.BandId);
 
         var add = _albumRepository.AddEntity(model);
 
@@ -39,13 +39,13 @@ public class AlbumApplication : IAlbumApplication
         return (await _albumRepository.SaveChangesAsync()).Parse(OperationMessage.Add);
     }
 
-    public async Task<EditAlbumViewModel> Edit(string slug)
+    public async Task<EditAlbumViewModel> Edit(long id)
     {
-        if (await _albumRepository.AnyEntityAsync(e => !e.Slug.Contains(slug)))
+        if (!await _albumRepository.AnyEntityAsync(e => e.Id == id))
             return new EditAlbumViewModel();
 
         var find = _albumRepository.Find<EditAlbumViewModel>(
-            e => e.Slug.Contains(slug),
+            e => e.Id == id,
             vm => new EditAlbumViewModel()
             {
                 Id = vm.Id,
@@ -78,30 +78,28 @@ public class AlbumApplication : IAlbumApplication
         var pictureName = _fileUpload.Upload(album.Picture, picturePath);
 
         find.Edit(album.Title, album.ReleasedDate, pictureName,
-            album.CategoryId,album.BandId);
+            album.CategoryId, album.BandId);
         return (await _albumRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 
-    public async Task<List<AlbumViewModel>> ToList(long albumId)
+    public async Task<List<AlbumViewModel>> ToList(long bandId)
     {
         var token = new CancellationToken();
-        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel>(e=>e.Id == albumId,
+        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel>(e => e.Id == bandId,
             e => new AlbumViewModel()
-        {
-            Title = e.Title,
-            State = e.State.ToString(),
-            Band = e.Band.Name,
-            Category = e.AlbumCategory.Title,
-            Id = e.Id
-        }, token, e => e.Band,e=>e.AlbumCategory);
+            {
+                Title = e.Title,
+                State = e.State.ToString(),
+                Band = e.Band.Name,
+                Category = e.AlbumCategory.Title,
+                Id = e.Id
+            }, token, e => e.Band, e => e.AlbumCategory);
         return list ?? new List<AlbumViewModel>();
     }
 
-    public async Task<OperationResult> ChangeState(string slug)
+    public async Task<OperationResult> ChangeState(long id)
     {
-        if (await _albumRepository.AnyEntityAsync(e => !e.Slug.Contains(slug)))
-            return new OperationResult().Failed(OperationMessage.NotFound);
-        var find = _albumRepository.Find(e => e.Slug.Contains(slug));
+        var find = _albumRepository.Find(e => e.Id == id);
         if (find is null)
             return new OperationResult().Failed(OperationMessage.NotFound);
         find.ChangeStatus();

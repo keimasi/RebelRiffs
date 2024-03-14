@@ -6,8 +6,8 @@ namespace MusicManagement.Application.Contracts.Contracts;
 public interface IAlbumApplication
 {
     Task<OperationResult> Add(CreateAlbumViewModel? album);
-    Task<EditAlbumViewModel> Edit(string slug);
+    Task<EditAlbumViewModel> Edit(long id);
     Task<OperationResult> Edit(EditAlbumViewModel? album);
-    Task<List<AlbumViewModel>> ToList(long albumId);
-    Task<OperationResult> ChangeState(string slug);
+    Task<List<AlbumViewModel>> ToList(long bandId);
+    Task<OperationResult> ChangeState(long id);
 }

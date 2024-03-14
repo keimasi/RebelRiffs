@@ -5,7 +5,7 @@
 
 <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
    asp-area="AdminPanel"
-   onclick="MediomPopup('@Url.Page("./Albums","CreateAlbum")','CreateAlbum')">
+   onclick="MediomPopup('@Url.Page("./Albums","CreateAlbum", new {id = @Model.Id})','CreateAlbum')">
     Create Album 
 </a>
 
@@ -32,7 +32,13 @@
                                 asp-route-id="@album.Id">
                             Go To Musics
                         </a>
-                        <a class="btn btn-warning">Edit Album</a>
+                        <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+                           asp-area="AdminPanel"
+                           onclick="MediomPopup('@Url.Page("./Albums","EditAlbum", 
+                                                     new {id = @album.Id})','EditAlbum')">
+                            Edit Album 
+                        </a>
+
                     </td>
                 }
             </tr>

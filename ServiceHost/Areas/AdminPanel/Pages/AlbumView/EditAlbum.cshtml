@@ -1,12 +1,12 @@
 ﻿@using MusicManagement.Application.Contracts.Contracts
 @model MusicManagement.Application.Contracts.ViewModels.AlbumViewModels.EditAlbumViewModel
 
-@inject IBandApplication BandApplication
+@*@inject IBandApplication BandApplication*@
 @inject ICategoryApplication CategoryApplication
 
 @{
     var categories = new SelectList(CategoryApplication.Categories(), "Key", "Value");
-    var bands = new SelectList(BandApplication.Bands(), "Key", "Value");
+    //var bands = new SelectList(BandApplication.Bands(), "Key", "Value");
 }
 
 <div class="col-12 grid-margin stretch-card">
@@ -30,14 +30,6 @@
                                placeholder="Slug">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label asp-for="Slug" class="col-sm-3 col-form-label">Slug</label>
-                    <div class="col-sm-9">
-                        <input type="text" id="slug" class="form-control"
-                               asp-for="Slug"
-                               placeholder="Slug">
-                    </div>
-                </div>
 
                 <div class="form-group row">
                     <div class="card">
@@ -45,17 +37,11 @@
                             <h2>Image</h2>
                         </div>
                         <div class="body">
-                            <input type="file" class="dropify" asp-for="Picture">
+                            <input type="file" asp-for="Picture">
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label>Categories</label>
-                    <select class="form-select bg-info w-25"
-                            asp-items="@bands" asp-for="BandId">
-                    </select>
-                </div>
                 <div class="form-group row">
                     <label>Categories</label>
                     <select class="form-select bg-info w-25"
@@ -73,11 +59,13 @@
                                placeholder="30/07/2016">
                     </div>
                 </div>
-                
-                <input type="hidden" aso-for="@Model.Id" value="@Model.Id"/>
+
+                <input type="hidden" aso-for="@Model.Id" value="@Model.Id" />
+                <input type="hidden" asp-for="BandId" value="@Model.BandId" />
+
 
                 <button type="submit" class="btn btn-primary mr-2">
-                    Add
+                    Edit
                 </button>
                 <button class="btn btn-dark">Cancel</button>
             </form>
