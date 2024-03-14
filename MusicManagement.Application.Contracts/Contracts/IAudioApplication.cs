@@ -8,6 +8,6 @@ public interface IAudioApplication
     Task<OperationResult> Add(CreateAudioViewModel? audio);
     Task<EditAudioViewModel> Edit(long id);
     Task<OperationResult> Edit(EditAudioViewModel? audio);
-    Task<List<AudioViewModel>> ToList();
+    Task<List<AudioViewModel>> ToList(long id);
     Task<OperationResult> ChangeState(long id);
 }

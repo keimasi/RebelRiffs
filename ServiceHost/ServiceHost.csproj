@@ -6,6 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+
   <ItemGroup>
     <ProjectReference Include="..\MusicManagement.Application.Contracts\MusicManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\MusicManagement.Infrastructure.Config\MusicManagement.Infrastructure.Config.csproj" />
@@ -15,6 +23,120 @@
     <Folder Include="Areas\AdminPanel\Pages\Shared\Components\LeftSidebar\" />
     <Folder Include="Areas\AdminPanel\ViewComponents\" />
     <Folder Include="wwwroot\Uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\AdminPanel\Pages\Shared\Components\LeftSidebar\" />
+    <Folder Include="Areas\AdminPanel\ViewComponents\" />
+    <Folder Include="wwwroot\Uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\AdminPanel\Pages\CreateBand.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\AdminPanel\Pages\CreateBand.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\AdminPanel\Pages\Music\Band\Create.cshtml" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\c3.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\countTo.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\datatablescripts.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\flotscripts.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\footable.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\fullcalendarscripts.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\jvectormap.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\knob.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\libscripts.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\mainscripts.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\morrisscripts.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\sparkline.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\bundles\vendorscripts.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\fonts\Material-Design-Iconic-Fontd1f1.woff2" />
+    <None Include="wwwroot\AdminTheme\assets\fonts\themify9f24.svg" />
+    <None Include="wwwroot\AdminTheme\assets\fonts\weathericons-regular-webfont.svg" />
+    <None Include="wwwroot\AdminTheme\assets\fonts\weathericons-regular-webfont.woff2" />
+    <None Include="wwwroot\AdminTheme\assets\images\404.svg" />
+    <None Include="wwwroot\AdminTheme\assets\images\loader.svg" />
+    <None Include="wwwroot\AdminTheme\assets\images\logo.svg" />
+    <None Include="wwwroot\AdminTheme\assets\images\maintanance.svg" />
+    <None Include="wwwroot\AdminTheme\assets\images\signin.svg" />
+    <None Include="wwwroot\AdminTheme\assets\images\signup.svg" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\blog\blog.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\calendar\calendar.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\charts\c3.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\charts\chartjs.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\charts\flot.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\charts\jquery-knob.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\charts\jquery-knob.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\charts\morris.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\charts\polar_area_chart.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\charts\sparkline.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\ecommerce.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\forms\advanced-form-elements.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\forms\basic-form-elements.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\forms\dropify.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\forms\editors.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\forms\form-validation.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\forms\form-wizard.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\index.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\maps\google.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\maps\jvectormap.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\medias\image-gallery.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\tables\editable-table.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\tables\footable.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\tables\jquery-datatable.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\ticket-page.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\todo-js.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\ui\notifications.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\ui\range-sliders.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\ui\sortable-nestable.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\ui\sweetalert.js" />
+    <None Include="wwwroot\AdminTheme\assets\js\pages\widgets\infobox\infobox-1.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\bootstrap-material-datetimepicker\js\bootstrap-material-datetimepicker.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\bootstrap-notify\bootstrap-notify.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\bootstrap-tagsinput\bootstrap-tagsinput.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\chartjs\Chart.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\chartjs\polar_area_chart.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\ckeditor\ckeditor.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\ckeditor\config.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\ckeditor\lang\en.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\ckeditor\styles.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\dropify\fonts\dropify.svg" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\dropify\js\dropify.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\dropzone\dropzone.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\editable-table\mindmup-editabletable.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\gmaps\gmaps.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\ion-rangeslider\js\ion.rangeSlider.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-datatable\buttons\buttons.bootstrap4.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-datatable\buttons\buttons.colVis.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-datatable\buttons\buttons.flash.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-datatable\buttons\buttons.html5.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-datatable\buttons\buttons.print.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-datatable\buttons\dataTables.buttons.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-inputmask\jquery.inputmask.bundle.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-knob\jquery.knob.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-sparkline\jquery.sparkline.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-spinner\js\jquery.spinner.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-steps\jquery.steps.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jquery-validation\jquery.validate.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jvectormap\jquery-jvectormap-au-mill.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jvectormap\jquery-jvectormap-in-mill.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jvectormap\jquery-jvectormap-uk-mill-en.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jvectormap\jquery-jvectormap-us-aea-en.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\light-gallery\fonts\lgd641.svg" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\light-gallery\js\lightgallery-all.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\momentjs\moment.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\multi-select\js\jquery.multi-select.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\nestable\jquery.nestable.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\nouislider\nouislider.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\select2\select2.min.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\summernote\dist\summernote.js" />
+    <None Include="wwwroot\AdminTheme\assets\plugins\sweetalert\sweetalert.min.js" />
   </ItemGroup>
 
 </Project>

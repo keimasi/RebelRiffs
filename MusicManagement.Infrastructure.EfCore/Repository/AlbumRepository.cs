@@ -1,5 +1,4 @@
 ﻿using Framework.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using MusicManagement.Domain.Entity;
 using MusicManagement.Domain.IRepository;
 
@@ -14,10 +13,5 @@ public class AlbumRepository : RepositoryBase<Album>, IAlbumRepository
     {
         _context = context;
     }
-
-    public Dictionary<long, long> AlbumCount()
-    {
-        return _context.Albums.Include(e=>e.Audios)
-            .ToDictionary(e => e.Id, e => (long)e.Audios.Count);
-    }
+    
 }

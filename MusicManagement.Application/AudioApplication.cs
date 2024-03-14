@@ -71,12 +71,12 @@ public class AudioApplication : IAudioApplication
         return (await _audioRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 
-    public async Task<List<AudioViewModel>> ToList()
+    public async Task<List<AudioViewModel>> ToList(long id)
     {
         CancellationToken token = new CancellationToken();
         var list = await
             _audioRepository.ToViewsWithInclude<AudioViewModel>
-                (null, e => new AudioViewModel()
+                (e => e.AlbumId == id, e => new AudioViewModel()
                 {
                     State = e.State.ToString(),
                     Id = e.Id,

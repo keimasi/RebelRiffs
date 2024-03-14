@@ -20,13 +20,14 @@ public class BandApplication : IBandApplication
 
     public async Task<OperationResult> Add(CreateBandViewModel? band)
     {
-        if (band is not null)
+        if (band is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
         if (await _bandRepository.AnyEntityAsync(e => e.Slug.Contains(band.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
-        var model = new Band(band.Name, band.Slug, band.BandCategoryId);
+
+        var model = new Band(band.Name, band.Slug.Slugify(), band.BandCategoryId);
         var add = _bandRepository.AddEntity(model);
 
         if (add != DbState.Added)
@@ -35,19 +36,19 @@ public class BandApplication : IBandApplication
         return (await _bandRepository.SaveChangesAsync()).Parse(OperationMessage.Add);
     }
 
-    public async Task<EditBandViewModel> Edit(string slug)
+    public async Task<EditBandViewModel> Edit(long id)
     {
-        if (await _bandRepository.AnyEntityAsync(e => !e.Slug.Contains(slug)))
+        if (!await _bandRepository.AnyEntityAsync(e => e.Id == id))
             return new EditBandViewModel();
 
         var find = _bandRepository.Find<EditBandViewModel>(
-            e => e.Slug.Contains(slug),
+            e => e.Id == id,
             vm => new EditBandViewModel()
             {
                 Id = vm.Id,
-                Slug = vm.Slug,
                 BandCategoryId = vm.BandCategoryId,
-                Name = vm.Name
+                Name = vm.Name,
+                Slug = vm.Slug
             },
             null);
         if (find is null)
@@ -60,15 +61,12 @@ public class BandApplication : IBandApplication
         if (band is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (await _bandRepository.AnyEntityAsync(e => e.Slug.Contains(band.Slug)))
-            return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
-
         var find = await _bandRepository.FindAsync(e => e.Id == band.Id);
 
         if (find is null)
             return new OperationResult().Failed(OperationMessage.NotFound);
 
-        find.Edit(band.Name, band.Slug, band.BandCategoryId);
+        find.Edit(band.Name, band.BandCategoryId,band.Slug);
         return (await _bandRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 
@@ -79,30 +77,25 @@ public class BandApplication : IBandApplication
         {
             Id = e.Id,
             Name = e.Name,
+            State = e.State,
             Category = e.BandCategory.Title,
-        }, token, e => e.BandCategory);
-        var albumCount = _albumRepository.AlbumCount();
-
-        list.Join(albumCount, e=>e.Id, a => a.Key,
-            (q,w)=> new BandViewModel()
-            {
-                Id = q.Id,
-                Category = q.Category,
-                Name = q.Name,
-                NumberOfAudio = w.Value
-            });
+            NumberOfAudio = e.Albums.Count
+        }, token, e => e.BandCategory,e=>e.Albums);
 
         return list ?? new List<BandViewModel>();
     }
 
-    public async Task<OperationResult> ChangeState(string slug)
+    public async Task<OperationResult> ChangeState(long id)
     {
-        if (await _bandRepository.AnyEntityAsync(e => !e.Slug.Contains(slug)))
+        if (!await _bandRepository.AnyEntityAsync(e => e.Id == id))
             return new OperationResult().Failed(OperationMessage.NotFound);
-        var find = _bandRepository.Find(e => e.Slug.Contains(slug));
-        if (find is null)
-            return new OperationResult().Failed(OperationMessage.NotFound);
-        find.ChangeStatus();
-        return new OperationResult().Succeeded();
+        var find = _bandRepository.Find(e => e.Id == id);
+        find?.ChangeStatus();
+        return (await _bandRepository.SaveChangesAsync()).Parse(OperationMessage.Done);
+    }
+
+    public Dictionary<long, string> Bands()
+    {
+        return _bandRepository.Bands();
     }
 }

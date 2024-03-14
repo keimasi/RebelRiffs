@@ -16,19 +16,19 @@ namespace MusicManagement.Infrastructure.Config
             services.AddTransient<IBandApplication, BandApplication>();
             services.AddTransient<IAlbumApplication, AlbumApplication>();
             services.AddTransient<IAudioApplication, AudioApplication>();
+            services.AddTransient<ICategoryApplication, CategoryApplication>();
 
 
             //Configure Repository
 
             services.AddTransient<IAlbumRepository, AlbumRepository>();
-            services.AddTransient<IAlbumCategoryRepository, AlbumCategoryRepository>();
             services.AddTransient<IAlbumPictureRepository, AlbumPictureRepository>();
             services.AddTransient<IArtistRepository, ArtistRepository>();
             services.AddTransient<IArtistPictureRepository, ArtistPictureRepository>();
             services.AddTransient<IAudioRepository, AudioRepository>();
             services.AddTransient<IBandRepository, BandRepository>();
-            services.AddTransient<IBandCategoryRepository, BandCategoryRepository>();
             services.AddTransient<IBandPictureRepository, BandPictureRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IInstrumentRepository, InstrumentRepository>();
 
             services.AddDbContext<MusicContext>(x => x.UseSqlServer(connectionString));

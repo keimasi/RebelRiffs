@@ -83,6 +83,17 @@ public class CategoryApplication : ICategoryApplication
         return list ?? new List<CategoryViewModel>(0);
     }
 
+    public Dictionary<long, string> Categories()
+    {
+        Dictionary<long,string>? categories = _categoryRepository?.Categories();
+        if (categories is null)
+            return new Dictionary<long, string>()
+            {
+                {-1,"Null"}
+            };
+        return categories;
+    }
+
     public async Task<OperationResult> ChangeState(string slug)
     {
         if (string.IsNullOrWhiteSpace(slug))

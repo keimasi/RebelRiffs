@@ -32,17 +32,18 @@ public class Band : EntityBase
         State = State.Active;
     }
 
-    protected Band(string name)
+    protected Band()
     {
-        Name = name;
+
     }
 
-    public void Edit(string name, string slug/*, SeoPage seoPage*/, long? categoryId)
+    public void Edit(string name/*, SeoPage seoPage*/, long? categoryId,string slug)
     {
-        Slug = slug;
         State = State.Active;
         //SeoPage = seoPage;
+        Name = name;
         BandCategoryId = categoryId;
+        Slug= slug;
     }
     public override void ChangeStatus()
     {

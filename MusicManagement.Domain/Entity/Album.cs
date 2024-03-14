@@ -49,7 +49,10 @@ public class Album : EntityBase
         Title = title;
         ReleasedDate = releasedDate;
         //SeoPage = seoPage;
-        ImagePath = imagePath;
+        
+        if (!string.IsNullOrWhiteSpace(imagePath))
+            ImagePath = imagePath;
+
         AlbumCategoryId = categoryId;
         BandId = bandId;
     }
