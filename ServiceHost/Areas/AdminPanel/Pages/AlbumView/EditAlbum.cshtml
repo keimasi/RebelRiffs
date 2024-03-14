@@ -1,0 +1,86 @@
+﻿@using MusicManagement.Application.Contracts.Contracts
+@model MusicManagement.Application.Contracts.ViewModels.AlbumViewModels.EditAlbumViewModel
+
+@inject IBandApplication BandApplication
+@inject ICategoryApplication CategoryApplication
+
+@{
+    var categories = new SelectList(CategoryApplication.Categories(), "Key", "Value");
+    var bands = new SelectList(BandApplication.Bands(), "Key", "Value");
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Create Band</h4>
+            <form class="forms-sample" method="post" asp-page-handler="EditAlbum" asp-page="./Albums">
+                <div class="form-group row">
+                    <label asp-for="Title" class="col-sm-3 col-form-label">Title</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="text" onchange="FillSlug()" class="form-control"
+                               asp-for="Title"
+                               placeholder="Title">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Slug" class="col-sm-3 col-form-label">Slug</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="slug" class="form-control"
+                               asp-for="Slug"
+                               placeholder="Slug">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Slug" class="col-sm-3 col-form-label">Slug</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="slug" class="form-control"
+                               asp-for="Slug"
+                               placeholder="Slug">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="card">
+                        <div class="header">
+                            <h2>Image</h2>
+                        </div>
+                        <div class="body">
+                            <input type="file" class="dropify" asp-for="Picture">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label>Categories</label>
+                    <select class="form-select bg-info w-25"
+                            asp-items="@bands" asp-for="BandId">
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label>Categories</label>
+                    <select class="form-select bg-info w-25"
+                            asp-items="@categories" asp-for="CategoryId">
+                    </select>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <label>Release Date</label>
+                    <div class="input-group masked-input">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="zmdi zmdi-calendar"></i></span>
+                        </div>
+                        <input type="text" class="form-control date" asp-for="ReleasedDate"
+                               placeholder="30/07/2016">
+                    </div>
+                </div>
+                
+                <input type="hidden" aso-for="@Model.Id" value="@Model.Id"/>
+
+                <button type="submit" class="btn btn-primary mr-2">
+                    Add
+                </button>
+                <button class="btn btn-dark">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

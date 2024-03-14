@@ -3,7 +3,11 @@
 @{
 }
 
-
+<a type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+   asp-area="AdminPanel"
+   onclick="MediomPopup('@Url.Page("./Albums","CreateAlbum")','CreateAlbum')">
+    Create Album 
+</a>
 
 <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">

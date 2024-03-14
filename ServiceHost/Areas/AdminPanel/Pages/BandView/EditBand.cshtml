@@ -1,0 +1,35 @@
+﻿@model MusicManagement.Application.Contracts.ViewModels.BandViewModels.EditBandViewModel
+@inject MusicManagement.Application.Contracts.Contracts.ICategoryApplication category
+
+@{ 
+    var selectList = new SelectList(category.Categories(),"Key","Value");
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Edit Band</h4>
+            <form class="forms-sample" method="post" asp-page-handler="EditBand"
+                  asp-page="./Bands">
+                <div class="form-group row">
+                    <label asp-for="Name" class="col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" asp-for="Name"
+                               placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label>Categories</label>
+                    <select class="form-select bg-info w-25"
+                            asp-items="@selectList" asp-for="BandCategoryId">
+                    </select>
+                </div>
+                <input type="hidden" asp-for="Id" value="@Model.Id"/>
+                <button type="submit" class="btn btn-primary mr-2">
+                    Edit
+                </button>
+                <button class="btn btn-dark">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

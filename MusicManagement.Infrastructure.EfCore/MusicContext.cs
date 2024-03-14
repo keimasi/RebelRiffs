@@ -12,7 +12,7 @@ public class MusicContext : DbContext
     public DbSet<Album> Albums { get; set; }
     public DbSet<Audio> Audios { get; set; }
     public DbSet<Artist> Artists { get; set; }
-    public DbSet<AlbumCategory> Categories { get; set; }
+    public DbSet<Category> Categories { get; set; }
     public DbSet<Instrument> Instruments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

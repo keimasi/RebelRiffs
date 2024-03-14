@@ -31,4 +31,21 @@
     <Folder Include="Areas\AdminPanel\ViewComponents\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\AdminPanel\Pages\CreateBand.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\AdminPanel\Pages\AlbumView\CreateAlbum.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\AdminPanel\Pages\CreateBand.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\AdminPanel\Pages\BandView\CreateBand.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\AdminPanel\Pages\AlbumView\CreateAlbum.cshtml" />
+  </ItemGroup>
+
 </Project>
