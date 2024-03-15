@@ -19,7 +19,7 @@ public class AlbumApplication : IAlbumApplication
 
     public async Task<OperationResult> Add(CreateAlbumViewModel? album)
     {
-        if (album is not null)
+        if (album is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
         if (await _albumRepository.AnyEntityAsync(e => e.Slug.Contains(album.Slug)))
@@ -75,7 +75,10 @@ public class AlbumApplication : IAlbumApplication
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var picturePath = $"Album/{find.Slug}";
-        var pictureName = _fileUpload.Upload(album.Picture, picturePath);
+        string pictureName = String.Empty;
+        
+        if(album.Picture is not null)
+            pictureName = _fileUpload.Upload(album.Picture, picturePath);
 
         find.Edit(album.Title, album.ReleasedDate, pictureName,
             album.CategoryId, album.BandId);
@@ -85,7 +88,7 @@ public class AlbumApplication : IAlbumApplication
     public async Task<List<AlbumViewModel>> ToList(long bandId)
     {
         var token = new CancellationToken();
-        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel>(e => e.Id == bandId,
+        var list = await _albumRepository.ToViewsWithInclude<AlbumViewModel>(e => e.BandId == bandId,
             e => new AlbumViewModel()
             {
                 Title = e.Title,

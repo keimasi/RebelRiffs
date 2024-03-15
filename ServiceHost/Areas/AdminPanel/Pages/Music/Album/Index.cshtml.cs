@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using MusicManagement.Application.Contracts.Contracts;
 using MusicManagement.Application.Contracts.ViewModels.AlbumViewModels;
 
-namespace ServiceHost.Areas.AdminPanel.Pages
+namespace ServiceHost.Areas.AdminPanel.Pages.Music.Album
 {
-    public class AlbumsModel : PageModel
+    public class IndexModel : PageModel
     {
-
         private readonly IAlbumApplication _albumApplication;
         
         public long Id { get; set; }
@@ -16,7 +15,7 @@ namespace ServiceHost.Areas.AdminPanel.Pages
         [TempData]
         public string Message { get; set; }
 
-        public AlbumsModel(IAlbumApplication albumApplication)
+        public IndexModel(IAlbumApplication albumApplication)
         {
             _albumApplication = albumApplication;
         }
@@ -29,7 +28,7 @@ namespace ServiceHost.Areas.AdminPanel.Pages
 
         public IActionResult OnGetCreateAlbum(long id)
         {
-            return Partial("AlbumView/CreateAlbum", new CreateAlbumViewModel()
+            return Partial("./Create", new CreateAlbumViewModel()
             {
                 BandId = id
             });
@@ -38,21 +37,20 @@ namespace ServiceHost.Areas.AdminPanel.Pages
         public async Task<IActionResult> OnGetEditAlbum(long id)
         {
             var album = await _albumApplication.Edit(id);
-            return Partial("AlbumView/EditAlbum",album);
+            return Partial("Edit",album);
         }
-
 
 
         public async Task<IActionResult> OnPostCreateAlbum(CreateAlbumViewModel album)
         {
             var result =await _albumApplication.Add(album);
-            return RedirectToPage("./Albums", routeValues: result.Message);
+            return RedirectToPage("./Index", routeValues: result.Message);
         }
 
         public async Task<IActionResult> OnPostEditAlbum(EditAlbumViewModel album)
         {
             var result = await _albumApplication.Edit(album);
-            return RedirectToPage("./Albums", routeValues: result.Message);
+            return RedirectToPage("./Index", routeValues: result.Message);
         }
     }
 }

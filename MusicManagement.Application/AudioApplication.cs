@@ -7,42 +7,34 @@ using MusicManagement.Domain.IRepository;
 
 namespace MusicManagement.Application;
 
-public class AudioApplication : IAudioApplication
+public class AudioApplication(IAudioRepository audioRepository, IFileUpload fileUpload) : IAudioApplication
 {
-    private readonly IFileUpload _fileUpload;
-    private readonly IAudioRepository _audioRepository;
-
-    public AudioApplication(IAudioRepository audioRepository, IFileUpload fileUpload)
-    {
-        _audioRepository = audioRepository;
-        _fileUpload = fileUpload;
-    }
-
+   
     public async Task<OperationResult> Add(CreateAudioViewModel? audio)
     {
         if (audio is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (await _audioRepository.AnyEntityAsync(e => e.Title == audio.Title))
+        if (await audioRepository.AnyEntityAsync(e => e.Title == audio.Title))
             return new OperationResult().Failed(OperationMessage.Duplicated);
 
         var picturePath = $"Audio/{audio.Title}";
-        var pictureName = _fileUpload.Upload(audio.MusicFile, picturePath);
+        var pictureName = fileUpload.Upload(audio.MusicFile, picturePath);
 
         var model = new Audio(audio.Title, pictureName, audio.AlbumId);
-        var add = _audioRepository.AddEntity(model);
+        var add = audioRepository.AddEntity(model);
         if (add != DbState.Added)
             return new OperationResult().Failed(OperationMessage.FailedAdd);
 
-        return (await _audioRepository.SaveChangesAsync()).Parse(OperationMessage.Add);
+        return (await audioRepository.SaveChangesAsync()).Parse(OperationMessage.Add);
     }
 
     public async Task<EditAudioViewModel> Edit(long id)
     {
-        if (await _audioRepository.AnyEntityAsync(e => e.Id == id))
+        if (await audioRepository.AnyEntityAsync(e => e.Id == id))
             return new EditAudioViewModel();
 
-        var find = await _audioRepository.FindAsync<EditAudioViewModel>(e => e.Id == id,
+        var find = await audioRepository.FindAsync<EditAudioViewModel>(e => e.Id == id,
             select => new EditAudioViewModel()
             {
                 Id = select.Id,
@@ -59,23 +51,23 @@ public class AudioApplication : IAudioApplication
         if (audio is null)
             return new OperationResult().Failed(OperationMessage.Null);
 
-        if (!await _audioRepository.AnyEntityAsync(e => e.Id == audio.Id))
+        if (!await audioRepository.AnyEntityAsync(e => e.Id == audio.Id))
             return new OperationResult().Failed(OperationMessage.NotFound);
 
-        var find = _audioRepository.Find(e => e.Id == audio.Id);
+        var find = audioRepository.Find(e => e.Id == audio.Id);
 
         var picturePath = $"Audio/{find.Title}";
-        var pictureName = _fileUpload.Upload(audio.MusicFile, picturePath);
+        var pictureName = fileUpload.Upload(audio.MusicFile, picturePath);
 
         find?.Edit(audio.Title, pictureName, audio.AlbumId);
-        return (await _audioRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
+        return (await audioRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 
     public async Task<List<AudioViewModel>> ToList(long id)
     {
         CancellationToken token = new CancellationToken();
         var list = await
-            _audioRepository.ToViewsWithInclude<AudioViewModel>
+            audioRepository.ToViewsWithInclude<AudioViewModel>
                 (e => e.AlbumId == id, e => new AudioViewModel()
                 {
                     State = e.State.ToString(),
@@ -90,9 +82,9 @@ public class AudioApplication : IAudioApplication
     public async Task<OperationResult> ChangeState(long id)
     {
 
-        if (!await _audioRepository.AnyEntityAsync(e => e.Id == id))
+        if (!await audioRepository.AnyEntityAsync(e => e.Id == id))
             return new OperationResult().Failed(OperationMessage.NotFound);
-        var find = _audioRepository.Find(e => e.Id == id);
+        var find = audioRepository.Find(e => e.Id == id);
         find?.ChangeStatus();
 
         return new OperationResult().Succeeded(OperationMessage.Done);

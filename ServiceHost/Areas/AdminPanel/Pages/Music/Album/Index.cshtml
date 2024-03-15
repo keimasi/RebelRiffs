@@ -1,0 +1,79 @@
+﻿@page "{id:long}"
+@model ServiceHost.Areas.AdminPanel.Pages.Music.Album.IndexModel
+@{
+}
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <a class="btn btn-primary text-white float-left" href="#showmodal=@Url.Page("./Index","CreateAlbum")">ایجاد آلبوم<i class="zmdi zmdi-plus"></i></a>
+            <div class="card">
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable text-center">
+                            <thead>
+                                <tr>
+                                    <th>شناسه</th>
+                                    <th>عنوان</th>
+                                    <th>گروه</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>شناسه</th>
+                                    <th>عنوان</th>
+                                    <th>گروه</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @foreach (var item in Model.Albums)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.Category</td>
+                                        <td>@item.State</td>
+                                        <td>
+                                            <a class="btn btn-warning btn-sm btn-round text-white" 
+                                               href="#showmodal=@Url.Page("./Index","Edit",new {id=item.Id})">
+                                                ویرایش
+                                            </a>
+
+                                            <a type="button"
+                                               class="btn btn-primary btn-sm btn-round text-white" asp-page="../Audio/Index" asp-route-id="@item.Id">لیست موزیک ها</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Css {
+    <link rel="stylesheet" href="~/AdminTheme/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
+}
+
+@section Script {
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="~/AdminTheme/assets/bundles/datatablescripts.bundle.js"></script>
+    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
+    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
+    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js"></script>
+    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.flash.min.js"></script>
+    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.html5.min.js"></script>
+    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.print.min.js"></script>
+    <script src="~/AdminTheme/assets/js/pages/tables/jquery-datatable.js"></script>
+
+    <script src="~/AdminTheme/assets/plugins/dropzone/dropzone.js"></script>
+    
+
+}

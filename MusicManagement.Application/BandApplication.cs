@@ -47,7 +47,8 @@ public class BandApplication : IBandApplication
             {
                 Id = vm.Id,
                 BandCategoryId = vm.BandCategoryId,
-                Name = vm.Name
+                Name = vm.Name,
+                Slug = vm.Slug
             },
             null);
         if (find is null)
@@ -59,12 +60,13 @@ public class BandApplication : IBandApplication
     {
         if (band is null)
             return new OperationResult().Failed(OperationMessage.Null);
+
         var find = await _bandRepository.FindAsync(e => e.Id == band.Id);
 
         if (find is null)
             return new OperationResult().Failed(OperationMessage.NotFound);
 
-        find.Edit(band.Name, band.BandCategoryId);
+        find.Edit(band.Name, band.BandCategoryId,band.Slug);
         return (await _bandRepository.SaveChangesAsync()).Parse(OperationMessage.Edit);
     }
 

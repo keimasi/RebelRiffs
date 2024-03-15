@@ -63,6 +63,7 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
         }
         if (whereExpression is not null)
             query = query.Where(whereExpression);
+
         return await query.Select(selectExpression).ToListAsync(cancellationToken);
     }
 

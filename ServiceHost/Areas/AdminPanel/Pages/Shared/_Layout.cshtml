@@ -9,6 +9,8 @@
     <title>@ViewData["Title"] | RebelRiffs</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
     <link rel="stylesheet" href="~/AdminTheme/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Custom Css -->
+    @await RenderSectionAsync("Css", false)
     <link rel="stylesheet" href="~/AdminTheme/assets/css/style.min.css">
 </head>
 
@@ -48,48 +50,21 @@
         </div>
     </section>
 
-
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                </div>
-                <div class="modal-body">
-                </div>
+    <div class="modal fade" id="MainModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="ModalContent">
             </div>
         </div>
     </div>
 
-    <script src="~/AdminTheme/assets/bundles/datatablescripts.bundle.js"></script>
-    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/dataTables.buttons.min.js"></script>
-    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.bootstrap4.min.js"></script>
-    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.colVis.min.js"></script>
-    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.flash.min.js"></script>
-    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.html5.min.js"></script>
-    <script src="~/AdminTheme/assets/plugins/jquery-datatable/buttons/buttons.print.min.js"></script>
-    <script src="~/AdminTheme/assets/js/pages/tables/jquery-datatable.js"></script>
-    <script src="~/AdminTheme/assets/bundles/mainscripts.bundle.js"></script>
     <script src="~/AdminTheme/assets/bundles/libscripts.bundle.js"></script>
     <script src="~/AdminTheme/assets/bundles/vendorscripts.bundle.js"></script>
-
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
+    <script src="~/AdminTheme/assets/bundles/mainscripts.bundle.js"></script>
+    <script src="~/js/site.js"></script>
 
     <script type="text/javascript">
-        MediomPopup = (url, title) => {
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (res) {
-                    $('#myModal .modal-body').html(res);
-                    $('#myModal .modal-title').html(title);
-                    $('#myModal').modal('show');
-                }
-            })
-        }
-
         function FillSlug() {
             // Get the input text and display element
             const inputText = document.getElementById("text");
@@ -98,7 +73,6 @@
             display.value = inputText.value;
         }
     </script>
-
 
     @await RenderSectionAsync("Script", false)
 </body>

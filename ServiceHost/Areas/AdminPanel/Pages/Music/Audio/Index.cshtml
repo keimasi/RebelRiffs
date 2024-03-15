@@ -1,5 +1,5 @@
 ﻿@page "{id:long}"
-@model ServiceHost.Areas.AdminPanel.Pages.MusicsModel
+@model ServiceHost.Areas.AdminPanel.Pages.Music.Audio.IndexModel
 @{
 }
 
@@ -15,9 +15,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                @foreach (var audio in Model.Audios)
-                {
+            @foreach (var audio in Model.Audios)
+            {
+                <tr>
                     <td>@audio.Id</td>
                     <td>@audio.Title</td>
                     <td>@audio.Category</td>
@@ -27,8 +27,8 @@
                         <a class="btn btn-warning">Add Music</a>
                         <a class="btn btn-warning">Edit Music</a>
                     </td>
-                }
-            </tr>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
