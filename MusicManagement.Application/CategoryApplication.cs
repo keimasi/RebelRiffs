@@ -67,7 +67,7 @@ public class CategoryApplication : ICategoryApplication
 
         var find = await _categoryRepository.FindAsync(e => e.Id == category.Id);
 
-        find?.Edit(category.Title, category.Slug);
+        find?.Edit(category.Title);
 
         return new OperationResult().Succeeded(OperationMessage.Edit);
     }

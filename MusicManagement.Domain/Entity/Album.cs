@@ -8,15 +8,10 @@ public class Album : EntityBase
     public string Title { get; private set; }
     public string Slug { get; private set; }
     public DateTime ReleasedDate { get; private set; }
-
+    public string ImagePath { get; private set; }
     public State State { get; private set; }
-    //Seo
-    //public SeoPage SeoPage { get; private set; }
 
     //Relation
-    //public AlbumPicture AlbumPicture { get; private set; }
-    //public long AlbumPictureId { get; set; }
-    public string ImagePath { get; private set; }
     public Category AlbumCategory { get; private set; }
     public long AlbumCategoryId { get; private set; }
 
@@ -29,27 +24,24 @@ public class Album : EntityBase
     {
 
     }
-    public Album(string title, string slug, DateTime releasedDate/*, SeoPage seoPage*/,
+    public Album(string title, string slug, DateTime releasedDate,
         string imagePath,
         long categoryId, long? bandId)
     {
         Title = title;
         Slug = slug;
         ReleasedDate = releasedDate;
-        //SeoPage = seoPage;
         ImagePath = imagePath;
         AlbumCategoryId = categoryId;
         BandId = bandId;
         State = State.Active;
     }
 
-    public void Edit(string title, DateTime releasedDate/*, SeoPage seoPage*/, string imagePath,
+    public void Edit(string title, DateTime releasedDate, string imagePath,
         long categoryId, long? bandId)
     {
         Title = title;
         ReleasedDate = releasedDate;
-        //SeoPage = seoPage;
-        
         if (!string.IsNullOrWhiteSpace(imagePath))
             ImagePath = imagePath;
 

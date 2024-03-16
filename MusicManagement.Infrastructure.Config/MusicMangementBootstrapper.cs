@@ -22,12 +22,9 @@ namespace MusicManagement.Infrastructure.Config
             //Configure Repository
 
             services.AddTransient<IAlbumRepository, AlbumRepository>();
-            services.AddTransient<IAlbumPictureRepository, AlbumPictureRepository>();
             services.AddTransient<IArtistRepository, ArtistRepository>();
-            services.AddTransient<IArtistPictureRepository, ArtistPictureRepository>();
             services.AddTransient<IAudioRepository, AudioRepository>();
             services.AddTransient<IBandRepository, BandRepository>();
-            services.AddTransient<IBandPictureRepository, BandPictureRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IInstrumentRepository, InstrumentRepository>();
 

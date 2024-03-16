@@ -7,16 +7,15 @@ public class Audio : EntityBase
 {
     public string Title { get; private set; }
     public string Path { get; private set; }
-
     public State State { get; private set; }
-    //Relation
 
+    //Relation
     public Album Album { get; private set; }
     public long AlbumId { get; private set; }
 
     protected Audio()
     {
-        
+
     }
 
     public Audio(string title, string path, long albumId)

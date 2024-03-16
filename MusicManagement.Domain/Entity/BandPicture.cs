@@ -1,6 +1,6 @@
 ﻿using Framework.Domain;
 
-namespace MusicManagement.Domain.Entity.PictureModels;
+namespace MusicManagement.Domain.Entity;
 
 public class BandPicture : PictureBase
 {
