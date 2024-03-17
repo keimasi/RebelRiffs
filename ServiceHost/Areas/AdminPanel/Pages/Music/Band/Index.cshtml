@@ -8,9 +8,6 @@
     <div class="row clearfix">
         <div class="col-lg-12">
             <a class="btn btn-primary text-white float-left" href="#showmodal=@Url.Page("./Index","CreateBand")">ایجاد بند<i class="zmdi zmdi-plus"></i></a>
-            <p>
-                Result :  @Model.Message
-            </p>
             <div class="card">
                 <div class="body">
                     <div class="table-responsive">
@@ -21,7 +18,7 @@
                                     <th>عنوان</th>
                                     <th>گروه</th>
                                     <th>وضعیت</th>
-                                    <th>تعداد موسیقی ها</th>
+                                    <th>تعداد آلبوم</th>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
@@ -31,7 +28,7 @@
                                     <th>عنوان</th>
                                     <th>گروه</th>
                                     <th>وضعیت</th>
-                                    <th>تعداد موسیقی ها</th>
+                                    <th>تعداد آلبوم</th>
                                     <th>عملیات</th>
                                 </tr>
                             </tfoot>
@@ -64,7 +61,7 @@
                                             </a>
 
                                             <a type="button"
-                                               class="btn btn-success btn-sm btn-round text-white" asp-page="../Album/Index" asp-route-id="@item.Id">لیست آلبوم ها</a>
+                                               class="btn btn-success btn-sm btn-round text-white" asp-page="../Album/Index" asp-route-id="@item.Id" asp-route-bandName="@item.Name">لیست آلبوم ها</a>
                                         </td>
                                     </tr>
                                 }

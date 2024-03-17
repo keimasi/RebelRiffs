@@ -11,10 +11,12 @@ public class AlbumApplication : IAlbumApplication
 {
     private readonly IFileUpload _fileUpload;
     private readonly IAlbumRepository _albumRepository;
-    public AlbumApplication(IAlbumRepository albumRepository, IFileUpload fileUpload)
+    private readonly IBandRepository _bandRepository;
+    public AlbumApplication(IAlbumRepository albumRepository, IFileUpload fileUpload, IBandRepository bandRepository)
     {
         _albumRepository = albumRepository;
         _fileUpload = fileUpload;
+        _bandRepository = bandRepository;
     }
 
     public async Task<OperationResult> Add(CreateAlbumViewModel? album)
@@ -25,7 +27,9 @@ public class AlbumApplication : IAlbumApplication
         if (await _albumRepository.AnyEntityAsync(e => e.Slug.Contains(album.Slug)))
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
-        var picturePath = $"Album/{album.Slug}";
+        var bandSlug = (await _bandRepository.FindAsync(x => x.Id == album.BandId))?.Slug;
+
+        var picturePath = $"Bands/{bandSlug}/{album.Slug}";
         var pictureName = _fileUpload.Upload(album.Picture, picturePath);
 
         var model = new Album(album.Title, album.Slug, album.ReleasedDate, pictureName,
@@ -53,7 +57,7 @@ public class AlbumApplication : IAlbumApplication
                 BandId = vm.BandId,
                 Title = vm.Title,
                 CategoryId = vm.AlbumCategoryId,
-                ReleasedDate = vm.ReleasedDate
+                ReleasedDate = vm.ReleasedDate,
             },
             null);
         if (find is null)
@@ -75,10 +79,7 @@ public class AlbumApplication : IAlbumApplication
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var picturePath = $"Album/{find.Slug}";
-        string pictureName = String.Empty;
-        
-        if(album.Picture is not null)
-            pictureName = _fileUpload.Upload(album.Picture, picturePath);
+        var pictureName = _fileUpload.Upload(album.Picture, picturePath);
 
         find.Edit(album.Title, album.ReleasedDate, pictureName,
             album.CategoryId, album.BandId);
@@ -95,7 +96,8 @@ public class AlbumApplication : IAlbumApplication
                 State = e.State.ToString(),
                 Band = e.Band.Name,
                 Category = e.AlbumCategory.Title,
-                Id = e.Id
+                Id = e.Id,
+                Picture = e.ImagePath
             }, token, e => e.Band, e => e.AlbumCategory);
         return list ?? new List<AlbumViewModel>();
     }

@@ -28,7 +28,6 @@
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Pages\Shared\Components\LeftSidebar\" />
     <Folder Include="Areas\AdminPanel\ViewComponents\" />
-    <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 
   <ItemGroup>
