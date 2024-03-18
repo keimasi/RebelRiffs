@@ -10,10 +10,10 @@
 }
 
 <div class="modal-header">
-    <h4 class="title" id="largeModalLabel">ایجاد آلبوم برای @Model.BandId</h4>
+    <h4 class="title" id="largeModalLabel">ایجاد آلبوم جدید</h4>
 </div>
 
-<form asp-page="./Index" asp-page-handler="CreateAlbum" method="post" data-ajax="true" data-callback="" data-action="Refresh" enctype="multipart/form-data" class="dropzone" id="my-awesome-dropzone">
+<form asp-page="./Index" asp-page-handler="CreateAlbum" method="post" data-ajax="true" data-callback="" data-action="Refresh" enctype="multipart/form-data">
     <div class="modal-body">
 
         <div class="row">
@@ -34,19 +34,10 @@
             </div>
         </div>
 
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <input type="file" name="Picture" />
-                </div>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="CategoryId" class="control-label">گروه</label>
+                    <label asp-for="CategoryId" class="control-label">ژانر</label>
                     <select class="form-control" asp-for="CategoryId" asp-items="categories">
                         <option value="0">انتخاب کنید</option>
                     </select>
@@ -63,6 +54,17 @@
             </div>
         </div>
 
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Picture" class="control-label">عکس</label>
+                    <input type="file" asp-for="Picture" />
+                    <span asp-validation-for="Picture" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
         <input type="hidden" asp-for="BandId" value="@Model.BandId" />
 
     </div>
@@ -71,22 +73,3 @@
         <button type="submit" class="btn btn-primary waves-effect waves-light">ایجاد</button>
     </div>
 </form>
-
-<script>
-    Dropzone.options.myAwesomeDropzone = {
-        paramName: "Picture",
-        maxFilesize: 15, // MB
-        acceptedFiles: "image/*",
-        dictDefaultMessage: "Drop files here or click to upload",
-        init: function () {
-            this.on("success", function (file, response) {
-                console.log("File uploaded:", response);
-                // Handle success response here
-            });
-            this.on("error", function (file, errorMessage) {
-                console.error("Error uploading file:", errorMessage);
-                // Handle error response here
-            });
-        }
-    };
-</script>

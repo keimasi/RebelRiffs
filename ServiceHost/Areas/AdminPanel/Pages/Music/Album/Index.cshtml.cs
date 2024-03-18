@@ -8,8 +8,9 @@ namespace ServiceHost.Areas.AdminPanel.Pages.Music.Album
     public class IndexModel : PageModel
     {
         private readonly IAlbumApplication _albumApplication;
-        
+
         public long Id { get; set; }
+        public string BandName;
         public List<AlbumViewModel> Albums { get; set; }
 
         [TempData]
@@ -20,9 +21,10 @@ namespace ServiceHost.Areas.AdminPanel.Pages.Music.Album
             _albumApplication = albumApplication;
         }
 
-        public async Task OnGet(long id)
+        public async Task OnGet(long id, string bandName)
         {
             Id = id;
+            BandName = bandName;
             Albums = await _albumApplication.ToList(id);
         }
 
@@ -37,20 +39,20 @@ namespace ServiceHost.Areas.AdminPanel.Pages.Music.Album
         public async Task<IActionResult> OnGetEditAlbum(long id)
         {
             var album = await _albumApplication.Edit(id);
-            return Partial("Edit",album);
+            return Partial("Edit", album);
         }
 
 
         public async Task<IActionResult> OnPostCreateAlbum(CreateAlbumViewModel album)
         {
-            var result =await _albumApplication.Add(album);
-            return RedirectToPage("./Index", routeValues: result.Message);
+            var result = await _albumApplication.Add(album);
+            return new JsonResult(new { result.Message });
         }
 
         public async Task<IActionResult> OnPostEditAlbum(EditAlbumViewModel album)
         {
             var result = await _albumApplication.Edit(album);
-            return RedirectToPage("./Index", routeValues: result.Message);
+            return new JsonResult(new { result.Message });
         }
     }
 }

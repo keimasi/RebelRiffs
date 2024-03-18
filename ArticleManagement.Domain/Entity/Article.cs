@@ -15,10 +15,8 @@ public class Article : EntityBase
 
     //Relation
     public ICollection<Tag> Tags { get; private set; }
-
-    protected Article()
-    {
-    }
+    public ICollection<ArticleTag> ArticleTags { get; private set; }
+    protected Article(){}
 
     public Article(string title, string shortDescription, string content, DateTime releaseDateTime, string slug)
     {

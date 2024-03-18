@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Entity\" />
     <Folder Include="Enums\" />
-    <Folder Include="IRepository\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,6 +6,7 @@ namespace Framework.Domain;
 public interface IRepository<TModel> where TModel : class
 {
     DbState AddEntity(TModel? model);
+    DbState AddRangeEntity(IEnumerable<TModel>? model);
     DbState UpdateEntity(TModel? model);
     DbState DeleteEntity(TModel? model);
     Task<bool> AnyEntityAsync(Expression<Func<TModel, bool>> anyExpression, CancellationToken cancellationToken = default);
@@ -14,7 +15,7 @@ public interface IRepository<TModel> where TModel : class
         , Expression<Func<TModel, TResult>> selectExpression, Func<TResult, bool>? findFunc);
 
     Task<TResult?> FindAsync<TResult>(Expression<Func<TModel, bool>> whereExpression
-        , Expression<Func<TModel, TResult>> selectExpression, Expression<Func<TResult?, bool>> findFunc);
+        , Expression<Func<TModel, TResult>> selectExpression, Expression<Func<TResult?, bool>>? findFunc);
     TModel? Find(Expression<Func<TModel, bool>> findExpression);
     Task<TModel?> FindAsync(Expression<Func<TModel, bool>> findExpression);
 

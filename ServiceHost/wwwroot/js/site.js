@@ -28,6 +28,7 @@ function hideModal() {
     $("#MainModal").modal("hide");
 }
 
+
 $(document).ready(function () {
     window.onhashchange = function () {
         SinglePage.LoadModal();
@@ -44,7 +45,6 @@ $(document).ready(function () {
     $(document).on("submit",
         'form[data-ajax="true"]',
         function (e) {
-            debugger;
             e.preventDefault();
             var form = $(this);
             const method = form.attr("method").toLocaleLowerCase();
@@ -86,11 +86,8 @@ function CallBackHandler(data, action, form) {
             alert(data.Message);
             break;
         case "Refresh":
-            if (data.isSuccedded) {
-                window.location.reload();
-            } else {
-                alert(data.message);
-            }
+            alert(data.message);
+            window.location.reload();
             break;
         case "RefereshList":
             {

@@ -37,14 +37,14 @@ namespace ServiceHost.Areas.AdminPanel.Pages.Music.Band
         {
             var result = await _bandApplication.Add(band);
             Message = result.Message;
-            return RedirectToPage("./Index");
+            return new JsonResult(new { Message });
         }
 
         public async Task<IActionResult> OnPostEditBand(EditBandViewModel band)
         {
             var result = await _bandApplication.Edit(band);
             Message = result.Message;
-            return RedirectToPage("./Index");
+            return new JsonResult(new { Message });
         }
 
         public async Task<IActionResult> OnGetChangeState(long id)

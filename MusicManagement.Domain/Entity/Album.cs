@@ -42,6 +42,7 @@ public class Album : EntityBase
     {
         Title = title;
         ReleasedDate = releasedDate;
+
         if (!string.IsNullOrWhiteSpace(imagePath))
             ImagePath = imagePath;
 

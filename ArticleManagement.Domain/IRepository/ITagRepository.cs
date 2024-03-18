@@ -5,5 +5,4 @@ namespace ArticleManagement.Domain.IRepository;
 
 public interface ITagRepository : IRepository<Tag>
 {
-    Dictionary<long, string> Tags();
 }
