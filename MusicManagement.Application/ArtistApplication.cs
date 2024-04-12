@@ -27,7 +27,7 @@ public class ArtistApplication : IArtistApplication
             return new OperationResult().Failed(OperationMessage.DuplicatedSlug);
 
         var picturePath = $"Artist/{artist.Slug}";
-        var pictureName = _fileUpload.Upload(artist.Picture, picturePath);
+        var pictureName = await _fileUpload.Upload(artist.Picture, picturePath);
 
         var model = new Artist(artist.Name, artist.Slug, pictureName, artist.BandId,
             artist.InstrumentId, artist.Country);
@@ -76,7 +76,7 @@ public class ArtistApplication : IArtistApplication
         var find = await _artistRepository.FindAsync(e => e.Slug.Contains(artist.Slug));
 
         var picturePath = $"Artist/{find.Slug}";
-        var pictureName = _fileUpload.Upload(artist.Picture, picturePath);
+        var pictureName = await _fileUpload.Upload(artist.Picture, picturePath);
 
         find?.Edit(artist.Name, pictureName, artist.BandId,
             artist.InstrumentId, artist.Country);

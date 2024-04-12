@@ -13,7 +13,7 @@
     <h4 class="title" id="largeModalLabel">ویرایش آلبوم : @Model.Title</h4>
 </div>
 
-<form asp-page="./Index" asp-page-handler="CreateAlbum" method="post" data-ajax="true" data-callback="" data-action="Refresh" enctype="multipart/form-data">
+<form asp-page="./Index" asp-page-handler="EditAlbum" method="post" data-ajax="true" data-callback="" data-action="Refresh" enctype="multipart/form-data">
     <div class="modal-body">
 
         <div class="row">
@@ -70,6 +70,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
-        <button type="submit" class="btn btn-primary waves-effect waves-light">ایجاد</button>
+        <button type="submit" class="btn btn-warning waves-effect waves-light">ویرایش</button>
     </div>
 </form>

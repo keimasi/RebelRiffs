@@ -30,7 +30,7 @@ public class AlbumApplication : IAlbumApplication
         var bandSlug = (await _bandRepository.FindAsync(x => x.Id == album.BandId))?.Slug;
 
         var picturePath = $"Bands/{bandSlug}/{album.Slug}";
-        var pictureName = _fileUpload.Upload(album.Picture, picturePath);
+        var pictureName = await _fileUpload.Upload(album.Picture, picturePath);
 
         var model = new Album(album.Title, album.Slug, album.ReleasedDate, pictureName,
             album.CategoryId, album.BandId);
@@ -79,7 +79,7 @@ public class AlbumApplication : IAlbumApplication
             return new OperationResult().Failed(OperationMessage.NotFound);
 
         var picturePath = $"Album/{find.Slug}";
-        var pictureName = _fileUpload.Upload(album.Picture, picturePath);
+        var pictureName =  await _fileUpload.Upload(album.Picture, picturePath);
 
         find.Edit(album.Title, album.ReleasedDate, pictureName,
             album.CategoryId, album.BandId);

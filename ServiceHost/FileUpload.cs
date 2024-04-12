@@ -11,7 +11,7 @@ namespace ServiceHost
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public string Upload(IFormFile file, string path)
+        public async Task<string> Upload(IFormFile file, string path)
         {
             if (file == null) return "";
 
@@ -23,8 +23,9 @@ namespace ServiceHost
             var fileName = $"{DateTime.Now.ToFileName()}-{file.FileName}";
             var filePath = $"{directoryPath}//{fileName}";
             using var output = File.Create(filePath);
-            file.CopyTo(output);
+            await file.CopyToAsync(output); // اضافه کردن await در اینجا
             return $"{path}/{fileName}";
         }
+
     }
 }

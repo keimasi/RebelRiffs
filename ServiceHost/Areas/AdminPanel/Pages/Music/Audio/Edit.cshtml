@@ -1,0 +1,47 @@
+﻿@model MusicManagement.Application.Contracts.ViewModels.AudioViewModel.EditAudioViewModel
+
+
+<div class="modal-header">
+    <h4 class="title" id="largeModalLabel">ویرایش آهنگ : @Model.Title</h4>
+</div>
+
+<form asp-page="./Index" asp-page-handler="EditAudio" method="post" data-ajax="true" data-callback="" data-action="Refresh" enctype="multipart/form-data">
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label">نام آهنگ</label>
+                    <input type="text" id="text" onchange="FillSlug()" class="form-control" asp-for="Title">
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Slug" class="control-label">اسلاگ</label>
+                    <input type="text" asp-for="Slug" id="slug" class="form-control">
+                    <span asp-validation-for="Slug" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="MusicFile" class="control-label">آپلود آهنگ</label>
+                    <input type="file" asp-for="MusicFile" />
+                    @* <span asp-validation-for="MusicFile" class="text-danger"></span> *@
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="AlbumId" value="@Model.AlbumId" />
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+        <button type="submit" class="btn btn-warning waves-effect waves-light">ویرایش</button>
+    </div>
+</form>

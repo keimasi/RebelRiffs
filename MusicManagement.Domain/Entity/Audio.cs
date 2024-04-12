@@ -30,6 +30,8 @@ public class Audio : EntityBase
         Title = title;
         Path = path;
         AlbumId = albumId;
+        if (!string.IsNullOrWhiteSpace(path))
+            Path = path;
     }
 
     public override void ChangeStatus()

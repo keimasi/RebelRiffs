@@ -4,6 +4,6 @@ namespace Framework.Application
 {
     public interface IFileUpload
     {
-        string Upload(IFormFile file, string path);
+       Task<string> Upload(IFormFile file, string path);
     }
 }
