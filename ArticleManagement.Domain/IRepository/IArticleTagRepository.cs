@@ -3,6 +3,7 @@ using Framework.Domain;
 
 namespace ArticleManagement.Domain.IRepository;
 
-public interface ITagRepository : IRepository<Tag>
+public interface IArticleTagRepository : IRepository<ArticleTag>
 {
+    
 }

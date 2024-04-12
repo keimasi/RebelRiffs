@@ -19,6 +19,12 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
         return _context.Set<TModel>().Add(model).ConvertEntityEntryToDbState();
     }
 
+    public DbState AddRangeEntity(IEnumerable<TModel>? model)
+    { 
+        _context.Set<TModel>().AddRange(model);
+        return DbState.Added;
+    }
+
     public DbState UpdateEntity(TModel? model)
     {
         return _context.Set<TModel>().Update(model).ConvertEntityEntryToDbState();
@@ -106,7 +112,7 @@ public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class
 
 
     public async Task<TResult?> FindAsync<TResult>(Expression<Func<TModel, bool>> whereExpression
-        , Expression<Func<TModel, TResult>> selectExpression,Expression<Func<TResult?, bool>> findFunc)
+        , Expression<Func<TModel, TResult>> selectExpression,Expression<Func<TResult?, bool>>? findFunc)
     {
         IQueryable<TResult?> query = _context.Set<TModel>().Where(whereExpression)
             .Select(selectExpression);

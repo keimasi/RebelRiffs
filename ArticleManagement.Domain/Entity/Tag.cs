@@ -7,23 +7,21 @@ public class Tag : EntityBase
     public string? Title { get; set; }
 
     //Relation 
-    public Article Article { get; private set; }
-    public long ArticleId { get; private set; }
+    public ICollection<Article> Articles { get; private set; }
+    public ICollection<ArticleTag> ArticleTags { get; private set; }
 
     protected Tag()
     {
         
     }
 
-    public Tag(string? title, long articleId)
+    public Tag(string? title)
     {
         Title = title;
-        ArticleId = articleId;
     }
-    public void Edit(string? title, long articleId)
+    public void Edit(string? title)
     {
         Title = title;
-        ArticleId = articleId;
     }
 
 }

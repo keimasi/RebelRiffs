@@ -1,3 +1,4 @@
+using ArticleManagement.Infrastructure.Config;
 using Framework.Application;
 using MusicManagement.Infrastructure.Config;
 using ServiceHost;
@@ -6,12 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-var connectionString = builder.Configuration.GetConnectionString("DbKey2");
-
-MusicMangementBootstrapper.Configure(builder.Services,connectionString);
-
+var connectionString = builder.Configuration.GetConnectionString("DbKey1");
 builder.Services.AddTransient<IFileUpload, FileUpload>();
 
+MusicMangementBootstrapper.Configure(builder.Services,connectionString);
+ArticleManagementBootstrapper.Configure(builder.Services,connectionString);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

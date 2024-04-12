@@ -1,4 +1,5 @@
-﻿using ArticleManagement.Domain.Entity;
+﻿using System.Diagnostics;
+using ArticleManagement.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,8 +12,8 @@ public class ArticleMapping : IEntityTypeConfiguration<Article>
         builder.ToTable("Articles");
         builder.HasKey(e => e.Id);
 
+        
 
-        builder.HasMany(e => e.Tags).WithOne(e => e.Article).HasForeignKey(e => e.ArticleId);
 
     }
 }

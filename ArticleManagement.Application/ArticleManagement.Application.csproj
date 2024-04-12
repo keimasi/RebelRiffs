@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entity\" />
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\ArticleManagement.Application.Contracts\ArticleManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\ArticleManagement.Domain\ArticleManagement.Domain.csproj" />
     <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>
 

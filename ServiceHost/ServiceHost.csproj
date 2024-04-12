@@ -15,6 +15,8 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\ArticleManagement.Application.Contracts\ArticleManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\ArticleManagement.Infrastructure.Config\ArticleManagement.Infrastructure.Config.csproj" />
     <ProjectReference Include="..\MusicManagement.Application.Contracts\MusicManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\MusicManagement.Infrastructure.Config\MusicManagement.Infrastructure.Config.csproj" />
   </ItemGroup>
